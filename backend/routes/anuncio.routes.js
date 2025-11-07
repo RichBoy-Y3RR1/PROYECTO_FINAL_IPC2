@@ -4,7 +4,7 @@ import path from 'path';
 import fs from 'fs';
 import { Op } from 'sequelize';
 import Anuncio from '../models/anuncio.model.js';
-import auth from '../middleware/auth.js';
+import { verificarToken } from '../middlewares/auth.middleware.js';
 
 const router = express.Router();
 
@@ -62,7 +62,7 @@ const validarPeriodo = (req, res, next) => {
 };
 
 // Obtener todos los anuncios
-router.get('/', auth, async (req, res) => {
+router.get('/', verificarToken, async (req, res) => {
     try {
         const { estado } = req.query;
         const where = {};
@@ -79,7 +79,7 @@ router.get('/', auth, async (req, res) => {
 });
 
 // Crear nuevo anuncio
-router.post('/', [auth, upload.single('imagen'), validarPeriodo], async (req, res) => {
+router.post('/', [verificarToken, upload.single('imagen'), validarPeriodo], async (req, res) => {
     try {
         const anuncioData = {
             ...req.body,
@@ -101,7 +101,7 @@ router.post('/', [auth, upload.single('imagen'), validarPeriodo], async (req, re
 });
 
 // Actualizar anuncio
-router.put('/:id', [auth, upload.single('imagen'), validarPeriodo], async (req, res) => {
+router.put('/:id', [verificarToken, upload.single('imagen'), validarPeriodo], async (req, res) => {
     try {
         const anuncio = await Anuncio.findByPk(req.params.id);
         if (!anuncio) {
@@ -131,7 +131,7 @@ router.put('/:id', [auth, upload.single('imagen'), validarPeriodo], async (req, 
 });
 
 // Desactivar anuncio
-router.patch('/:id/desactivar', auth, async (req, res) => {
+router.patch('/:id/desactivar', verificarToken, async (req, res) => {
     try {
         const anuncio = await Anuncio.findByPk(req.params.id);
         if (!anuncio) {
@@ -150,7 +150,7 @@ router.patch('/:id/desactivar', auth, async (req, res) => {
 });
 
 // Obtener estadísticas
-router.get('/estadisticas', auth, async (req, res) => {
+router.get('/estadisticas', verificarToken, async (req, res) => {
     try {
         const { desde, hasta } = req.query;
         const where = {};

@@ -43,3 +43,16 @@ export const anunciosVigentes = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export const desactivarAnuncio = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const anuncio = await Anuncio.findByPk(id);
+    if (!anuncio) return res.status(404).json({ error: 'Anuncio no encontrado' });
+    await anuncio.update({ activo: false });
+    res.json({ mensaje: 'Anuncio desactivado' });
+  } catch (error) {
+    console.error('Error desactivarAnuncio:', error);
+    res.status(500).json({ error: error.message });
+  }
+};

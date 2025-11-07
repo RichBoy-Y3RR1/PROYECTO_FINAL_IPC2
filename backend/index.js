@@ -1,28 +1,105 @@
+// backend/paginaprincipal.js
 import express from 'express';
 import cors from 'cors';
-import morgan from 'morgan';
-import authRoutes from './routes/auth.routes.js';
-import anuncioRoutes from './routes/anuncio.routes.js';
+import dotenv from 'dotenv';
+import './modelos/cine.modelo.js';
+import Cine from './modelos/cine.modelo.js';
+import sequelize from './config/db.js';
+import rutasPeliculas from './rutas/peliculas.ruta.js';
+import rutasCines from './rutas/cines.ruta.js';
+import rutasBoletos from './rutas/boletos.ruta.js';
+import rutasSalas from './rutas/salas.ruta.js';
+import './modelos/boleto.modelo.js';
+import rutasFunciones from './rutas/funciones.ruta.js';
+import rutasPagos from './rutas/pagos.ruta.js';
+import rutasUsuarios from './rutas/usuarios.ruta.js';
+import './modelos/funcion.modelo.js';
+import './modelos/pago.modelo.js';
+import './modelos/usuario.modelo.js';
+import authRuta from './rutas/auth.ruta.js';
+import carteraRuta from './rutas/cartera.ruta.js';
+import anuncioRuta from './rutas/anuncio.ruta.js';
+import bloqueoRuta from './rutas/bloqueoanuncio.ruta.js';
+import costoRuta from './rutas/costocine.ruta.js';
+import comentarioRuta from './rutas/comentario.ruta.js';
+import reportesRuta from './rutas/reportes.ruta.js';
+import configAnuncioRuta from './rutas/config-anuncio.ruta.js';
+
+
+
+// Importar modelos
+import './modelos/pelicula.modelo.js';
+import './modelos/cine.modelo.js';
+import './modelos/usuario.modelo.js';
+import './modelos/funcion.modelo.js';
+import './modelos/boleto.modelo.js';
+import './modelos/pago.modelo.js';
+import './modelos/config-anuncio.modelo.js';
+
+// ✅ Importar asociaciones
+import './modelos/asociaciones.js';
+
+
+
+
+
+
+dotenv.config();
 
 const app = express();
+const PUERTO = process.env.PUERTO || 4000;
 
-// Middleware
-app.use(cors()); // Habilita CORS para el frontend
+app.use(cors());
 app.use(express.json());
-app.use(morgan('dev'));
 
-// Rutas
-app.use('/api/auth', authRoutes);
-app.use('/api/anuncios', anuncioRoutes);
 
-// Error handler
+app.get('/', (req, res) => {
+  res.send(`
+    <h1>🎬 Bienvenido a la API de CineHub</h1>
+    <ul>
+      <li>🎞️ <a href="/api/peliculas">Ver Películas</a></li>
+      <li>🏛️ <a href="/api/cines">Ver Cines</a></li>
+      <li>🎟️ <a href="/api/boletos">Ver Boletos</a></li>
+      <li>🕐 <a href="/api/funciones">Ver Funciones</a></li>
+      <li>💳 <a href="/api/pagos">Ver Pagos</a></li>
+      <li>🧑‍💼 <a href="/api/usuarios">Ver Usuarios</a></li>
+    </ul>
+  `);
+});
+
+
+app.use('/api/auth', authRuta);
+app.use('/api/cartera', carteraRuta);
+app.use('/api/anuncios', anuncioRuta);
+app.use('/api/anuncios/config', configAnuncioRuta);
+
+app.use('/api/bloqueo-anuncios', bloqueoRuta);
+app.use('/api/costos-cine', costoRuta);
+app.use('/api/comentarios', comentarioRuta);
+
+app.use('/api/reportes', reportesRuta);
+
+app.use('/api/peliculas', rutasPeliculas);
+app.use('/api/cines', rutasCines);
+app.use('/api/salas', rutasSalas);
+app.use('/api/boletos', rutasBoletos);
+app.use('/api/funciones', rutasFunciones);
+app.use('/api/pagos', rutasPagos);
+app.use('/api/usuarios', rutasUsuarios);
+// app.use('/api/cines', rutasCines); ...
+
+// Middleware para manejar errores globales
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({ message: err.message });
+  res.status(500).json({ error: 'Algo salió mal, por favor intenta nuevamente.' });
 });
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`🚀 Servidor corriendo en puerto ${PORT}`);
-});
+// Sincroniza Sequelize y levanta el servidor
+sequelize.sync({ force: false }) // No borrar datos
+  .then(() => {
+    console.log('📦 Base de datos sincronizada');
+    app.listen(PUERTO, () => {
+      console.log(`🚀 Servidor corriendo en http://localhost:${PUERTO}`);
+    });
+  })
+  .catch(err => console.error('❌ Error al conectar con la BD:', err));

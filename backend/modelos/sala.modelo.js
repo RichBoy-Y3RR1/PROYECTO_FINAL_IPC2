@@ -15,6 +15,18 @@ const Sala = sequelize.define('Sala', {
     type: DataTypes.STRING,
     defaultValue: 'Normal'
   },
+  bloquearComentarios: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
+  },
+  bloquearCalificaciones: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
+  },
+  visiblePublica: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true
+  },
   cineId: {
     type: DataTypes.INTEGER,
     allowNull: false,
