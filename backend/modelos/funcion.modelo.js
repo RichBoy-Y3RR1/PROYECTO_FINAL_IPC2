@@ -7,6 +7,10 @@ const Funcion = sequelize.define('Funcion', {
     type: DataTypes.INTEGER,
     allowNull: false
   },
+  salaId: {
+    type: DataTypes.INTEGER,
+    allowNull: true
+  },
   cineId: {
     type: DataTypes.INTEGER,
     allowNull: false
