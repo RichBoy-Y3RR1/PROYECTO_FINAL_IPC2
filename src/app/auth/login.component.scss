@@ -165,3 +165,24 @@ mat-card-content {
 mat-form-field {
   margin-bottom: 16px;
 }
+
+/* Enlace de registro */
+.registro-link {
+  text-align: center;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  color: #666;
+  font-size: 14px;
+
+  a {
+    color: #e50914;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 4px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

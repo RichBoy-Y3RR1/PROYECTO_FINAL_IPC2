@@ -1,5 +1,6 @@
 // controladores/auth.controlador.js
 import Usuario from '../modelos/usuario.modelo.js';
+import Cartera from '../modelos/cartera.modelo.js';
 import { body, validationResult } from 'express-validator';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -19,12 +20,28 @@ export const registrar = [
     }
 
     try {
-      const { nombre, correo, contraseña, tipo } = req.body;
+      const { nombre, correo, contraseña, tipo, email, edad, telefono } = req.body;
       const hash = await bcrypt.hash(contraseña, 10);
-      const usuario = await Usuario.create({ nombre, correo, contraseña: hash, tipo });
+      const usuario = await Usuario.create({ 
+        nombre, 
+        correo, 
+        email: email || correo,
+        contraseña: hash, 
+        tipo: tipo || 'cliente',
+        edad,
+        telefono
+      });
+
+      // Crear cartera automáticamente con saldo inicial de 0
+      await Cartera.create({
+        usuarioId: usuario.id,
+        saldo: 0
+      });
+
       res.json({ msg: 'Usuario registrado', usuario });
     } catch (error) {
-      res.status(500).json({ error });
+      console.error('Error al registrar:', error);
+      res.status(500).json({ error: error.message });
     }
   }
 ];

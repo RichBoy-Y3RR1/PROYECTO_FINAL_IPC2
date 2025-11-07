@@ -13,6 +13,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CineDialogComponent } from './dialogs/cine-dialog.component';
 import { SalaDialogComponent } from './dialogs/sala-dialog.component';
+import { AsignarPeliculaDialogComponent } from './dialogs/asignar-pelicula-dialog.component';
 
 @Component({
   selector: 'app-cines-admin',
@@ -42,8 +43,9 @@ import { SalaDialogComponent } from './dialogs/sala-dialog.component';
             <div class="salas-section">
               <h3>Salas ({{ cine.salas?.length || 0 }})</h3>
               <mat-chip-set *ngIf="cine.salas && cine.salas.length > 0">
-                <mat-chip *ngFor="let sala of cine.salas" class="sala-chip">
+                <mat-chip *ngFor="let sala of cine.salas" class="sala-chip" (click)="asignarPeliculaASala(cine, sala)">
                   {{ sala.nombre }} - {{ sala.tipo }} ({{ sala.capacidad }} asientos)
+                  <mat-icon matChipTrailingIcon>movie</mat-icon>
                 </mat-chip>
               </mat-chip-set>
               <p *ngIf="!cine.salas || cine.salas.length === 0" class="no-salas">
@@ -130,6 +132,12 @@ import { SalaDialogComponent } from './dialogs/sala-dialog.component';
 
     .sala-chip {
       font-size: 12px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .sala-chip:hover {
+      background-color: #e3f2fd !important;
     }
 
     .no-salas {
@@ -254,6 +262,29 @@ export class CinesAdminComponent {
           error: (err) => {
             console.error('Error creando sala:', err);
             this.snackBar.open('Error al crear sala', 'Cerrar', { duration: 3000 });
+          }
+        });
+      }
+    });
+  }
+
+  asignarPeliculaASala(cine: any, sala: any) {
+    const dialogRef = this.dialog.open(AsignarPeliculaDialogComponent, {
+      width: '600px',
+      disableClose: true,
+      data: { cine, sala }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.http.post('http://localhost:4000/api/funciones', result).subscribe({
+          next: () => {
+            this.snackBar.open(`Película asignada a ${sala.nombre} exitosamente`, 'Cerrar', { duration: 3000 });
+            this.cargarCines();
+          },
+          error: (err) => {
+            console.error('Error asignando película:', err);
+            this.snackBar.open('Error al asignar película', 'Cerrar', { duration: 3000 });
           }
         });
       }

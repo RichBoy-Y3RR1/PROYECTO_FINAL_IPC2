@@ -96,7 +96,7 @@ app.use((err, req, res, next) => {
 
 // Sincroniza Sequelize y levanta el servidor
 // Habilitar alter en esta iteración para actualizar columnas (ej. salaId en Función)
-sequelize.sync({ force: true }) // Recrea tablas para alinear esquema (iteración de estabilización)
+sequelize.sync({ force: false }) // No borrar datos
   .then(() => {
     console.log('📦 Base de datos sincronizada');
     app.listen(PUERTO, () => {
