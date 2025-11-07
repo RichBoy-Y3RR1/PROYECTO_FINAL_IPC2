@@ -1,0 +1,167 @@
+/* Contenedor principal con fondo de cine */
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('https://source.unsplash.com/1920x1080/?cinema,movie-theater') center/cover no-repeat;
+  padding: 20px;
+  position: relative;
+}
+
+/* Overlay oscuro para mejorar legibilidad */
+.cinema-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+/* Tarjeta de login con efecto glassmorphism */
+mat-card {
+  width: 90%;
+  max-width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.95);
+  position: relative;
+  z-index: 2;
+  padding: 24px;
+}
+
+/* Estilos del logo y título */
+.logo-container {
+  text-align: center;
+  margin-bottom: 24px;
+  width: 100%;
+
+  .cinema-icon {
+    font-size: 48px;
+    color: #e50914;
+    margin-bottom: 16px;
+  }
+
+  mat-card-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #1a1a1a;
+    margin: 16px 0;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .welcome-text {
+    color: #666;
+    font-size: 16px;
+    margin: 8px 0;
+  }
+}
+
+/* Instrucciones de login */
+.login-instructions {
+  background: rgba(229, 9, 20, 0.1);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+
+  p {
+    color: #1a1a1a;
+    margin: 8px 0;
+    font-size: 14px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 16px;
+    margin: 8px 0;
+
+    li {
+      color: #666;
+      font-size: 14px;
+      margin: 4px 0;
+      position: relative;
+
+      &:before {
+        content: '🎬';
+        position: absolute;
+        left: -20px;
+        top: 0;
+      }
+    }
+  }
+}
+
+/* Encabezado de la tarjeta */
+mat-card-header {
+  /* Espacio debajo del encabezado */
+  margin-bottom: 20px;
+
+  /* Título de la tarjeta */
+  mat-card-title {
+    /* Tamaño de fuente del título */
+    font-size: 24px;
+    /* Color del texto */
+    color: #333;
+    /* Sin márgenes */
+    margin: 0;
+    /* Centrado del texto */
+    text-align: center;
+    /* Ancho completo */
+    width: 100%;
+  }
+}
+
+/* Contenido de la tarjeta */
+mat-card-content {
+  /* Espacio interno */
+  padding: 0 16px;
+}
+
+/* Clase para elementos que ocupan todo el ancho */
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+/* Contenedor de acciones (botones) */
+.actions {
+  /* Centrado usando flexbox */
+  display: flex;
+  justify-content: center;
+  /* Espaciado vertical */
+  margin: 24px 0 8px;
+
+  /* Estilos del botón */
+  button {
+    /* Botón a todo el ancho */
+    width: 100%;
+    /* Espaciado interno del botón */
+    padding: 8px 0;
+    /* Tamaño de texto del botón */
+    font-size: 16px;
+  }
+}
+
+/* Estilos globales para campos de Material */
+::ng-deep {
+  /* Campo de formulario Material */
+  .mat-mdc-form-field {
+    width: 100%;
+  }
+
+  /* Contenedor del campo de texto */
+  .mat-mdc-text-field-wrapper {
+    margin-bottom: 8px;
+  }
+}
+
+mat-form-field {
+  margin-bottom: 16px;
+}

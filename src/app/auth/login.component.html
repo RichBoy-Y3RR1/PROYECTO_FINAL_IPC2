@@ -1,0 +1,43 @@
+<div class="login-container">
+  <div class="cinema-overlay"></div>
+  <mat-card>
+    <mat-card-header>
+      <div class="logo-container">
+        <i class="material-icons cinema-icon">movie</i>
+        <mat-card-title>CineHub</mat-card-title>
+        <p class="welcome-text">Tu portal al mundo del cine</p>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="login-instructions">
+        <p>🎬 Bienvenido a tu experiencia cinematográfica personalizada</p>
+        <p>📧 Ingresa con tu cuenta para:</p>
+        <ul>
+          <li>Reservar entradas</li>
+          <li>Ver cartelera actualizada</li>
+          <li>Acceder a promociones exclusivas</li>
+        </ul>
+      </div>
+      <form [formGroup]="form" (ngSubmit)="login()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="correo" placeholder="ejemplo@email.com">
+          <mat-error *ngIf="form.get('correo')?.hasError('required')">El email es requerido</mat-error>
+          <mat-error *ngIf="form.get('correo')?.hasError('email')">Email inválido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Contraseña</mat-label>
+          <input matInput type="password" formControlName="contraseña">
+          <mat-error *ngIf="form.get('contraseña')?.hasError('required')">La contraseña es requerida</mat-error>
+        </mat-form-field>
+
+        <div class="actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+            Iniciar Sesión
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

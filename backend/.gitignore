@@ -1,0 +1,3 @@
+# Ignorar módulos y configuración local
+node_modules/
+.env

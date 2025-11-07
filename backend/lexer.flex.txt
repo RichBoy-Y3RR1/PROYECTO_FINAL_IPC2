@@ -1,0 +1,103 @@
+/* lexer.flex — Analizador Léxico compatible con Parser LL(1) */
+package analisis;
+
+import java.util.ArrayList;
+import java.util.List;
+import modelo.ErrorLexico;
+import modelo.Token;
+
+%%
+
+%public
+%class Lexer
+%unicode
+%line
+%column
+%type Token
+%ignorecase
+
+%{
+    // =======================
+    // Código Java embebido
+    // =======================
+    private List<ErrorLexico> errores = new ArrayList<>();
+
+    public List<ErrorLexico> getErrores() {
+        return errores;
+    }
+
+    private void registrarError(String simbolo, String descripcion, String tipo) {
+        errores.add(new ErrorLexico(simbolo, yyline + 1, yycolumn + 1, descripcion, tipo));
+    }
+
+    private Token token(String tipo) {
+        return new Token(tipo, yytext(), yyline + 1, yycolumn + 1);
+    }
+%}
+
+%%
+// ==========================
+// Ignorar espacios y saltos
+// ==========================
+[ \t\r\n]+                  { /* Ignorar */ }
+
+// ==========================
+// Comentarios
+// ==========================
+"//".*                      { /* Ignorar */ }
+"/*"([^*]|\*+[^*/])*\*+"/"  { /* Ignorar */ }
+"/*"([^*]|\*+[^*/])*$       {
+                                registrarError(yytext(), "Comentario de bloque sin cierre", "Comentario");
+                                return new Token("ERROR", yytext(), yyline + 1, yycolumn + 1);
+                            }
+
+// ==========================
+// Palabras reservadas LL(1)
+// ==========================
+"DEFINIR"                   { return token("DEFINIR"); }
+"COMO"                      { return token("COMO"); }
+"ENTERO"                    { return token("ENTERO"); }
+"NUMERO"                    { return token("NUMERO"); }
+"CADENA"                    { return token("CADENA"); }
+"ESCRIBIR"                  { return token("ESCRIBIR"); }
+
+// ==========================
+// Identificadores y números
+// ==========================
+[a-zA-Z_][a-zA-Z0-9_]*      { return token("ID"); }
+[0-9]+                      { return token("NUMERO"); }
+[0-9]+"."[0-9]+             { return token("DECIMAL"); }
+
+// ==========================
+// Operadores y símbolos
+// ==========================
+"="                         { return token("IGUAL"); }
+"+"                         { return token("MAS"); }
+"-"                         { return token("MENOS"); }
+"*"                         { return token("MULT"); }
+"/"                         { return token("DIV"); }
+";"                         { return token("PUNTOYCOMA"); }
+","                         { return token("COMA"); }
+"("|")"|"["|"]"|"{"|"}"     { return token("AGRUPACION"); }
+
+// ==========================
+// Cadenas
+// ==========================
+\"([^\"\\n])*\"             { return token("CADENA"); }
+\"([^\"\\n])*$              {
+                                registrarError(yytext(), "Cadena no cerrada con comillas", "Cadena");
+                                return new Token("ERROR", yytext(), yyline + 1, yycolumn + 1);
+                            }
+
+// ==========================
+// Errores
+// ==========================
+.                           {
+                                registrarError(yytext(), "Símbolo no reconocido", "Símbolo");
+                                return new Token("ERROR", yytext(), yyline + 1, yycolumn + 1);
+                            }
+
+// ==========================
+// Fin de archivo
+// ==========================
+<<EOF>>                     { return null; }

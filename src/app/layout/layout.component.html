@@ -1,0 +1,16 @@
+<mat-toolbar color="primary">
+  <span>CineHub</span>
+  <span class="spacer"></span>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/dashboard">Dashboard</button>
+    <button mat-menu-item routerLink="/profile">Perfil</button>
+    <button mat-menu-item (click)="logout()">Cerrar sesión</button>
+  </mat-menu>
+</mat-toolbar>
+
+<div class="content">
+  <router-outlet></router-outlet>
+</div>
