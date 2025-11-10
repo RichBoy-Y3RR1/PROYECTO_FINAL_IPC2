@@ -36,7 +36,7 @@ import { PeliculaDialogComponent } from './dialogs/pelicula-dialog.component';
 
       <div class="peliculas-grid">
         <mat-card *ngFor="let pelicula of filtrarPeliculas()" class="pelicula-card">
-          <img mat-card-image [src]="pelicula.imagen || pelicula.posterUrl || 'assets/default-movie.svg'" 
+          <img mat-card-image [src]="pelicula.imagen || pelicula.posterUrl || 'assets/default-movie.svg'"
                [alt]="pelicula.titulo"
                (error)="onImageError($event)">
           <mat-card-header>
@@ -126,7 +126,7 @@ export class PeliculasAdminComponent {
   searchTerm: string = '';
 
   constructor(
-    private http: HttpClient, 
+    private http: HttpClient,
     private snackBar: MatSnackBar,
     private dialog: MatDialog
   ) {
@@ -150,7 +150,7 @@ export class PeliculasAdminComponent {
       return this.peliculas;
     }
     const term = this.searchTerm.toLowerCase();
-    return this.peliculas.filter(p => 
+    return this.peliculas.filter(p =>
       p.titulo?.toLowerCase().includes(term) ||
       p.genero?.toLowerCase().includes(term)
     );

@@ -14,29 +14,44 @@ export class AuthService {
     if (token) this.tokenSubject.next(token);
   }
 
+  // Mantiene la firma usada por el LoginComponent actual
   login(credentials: { correo: string; contraseña: string }) {
     return this.http.post<any>(`${this.api}/auth/login`, credentials).pipe(
       tap({
-        next: res => {
-          console.log('Login response:', res);
+        next: (res) => {
+          // Persistencia
           localStorage.setItem('token', res.token);
           if (res.usuario) {
             localStorage.setItem('user', JSON.stringify(res.usuario));
-            this.tokenSubject.next(res.token);
-            
-            // Redirigir según el tipo de usuario
-            if (res.usuario.tipo === 'admin') {
-              this.router.navigate(['/admin']);
-            } else {
-              this.router.navigate(['/']);
-            }
           }
+          this.tokenSubject.next(res.token);
+
+          // Redirección centralizada por rol
+          const role = res?.usuario?.tipo ?? this.getCurrentUser()?.tipo ?? '';
+          const target = this.routeForRole(role);
+          this.router.navigate([target]);
         },
-        error: err => {
+        error: (err) => {
           console.error('Error en el login:', err);
-        }
+        },
       })
     );
+  }
+
+  private routeForRole(tipo: string): string {
+    switch (tipo) {
+      case 'admin-general':
+      case 'admin':
+        return '/admin-sistema';
+      case 'admin-cine':
+      case 'admin_cine':
+        return '/admin-cine';
+      case 'anunciante':
+        return '/anunciante';
+      default:
+        // Cliente normal: aterriza en el dashboard público (cartelera por defecto)
+        return '/dashboard';
+    }
   }
 
   logout() {

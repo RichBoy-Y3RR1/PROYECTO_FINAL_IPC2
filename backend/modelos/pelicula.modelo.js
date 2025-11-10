@@ -35,6 +35,11 @@ const Pelicula = sequelize.define('Pelicula', {
     type: DataTypes.STRING,
     allowNull: true
   },
+  cast: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+    comment: 'Elenco/reparto de la película (separado por comas)'
+  },
   clasificacion: {
     type: DataTypes.STRING,
     allowNull: true

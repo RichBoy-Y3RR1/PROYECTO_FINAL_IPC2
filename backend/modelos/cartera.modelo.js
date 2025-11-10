@@ -5,15 +5,29 @@ import sequelize from '../config/db.js';
 const Cartera = sequelize.define('Cartera', {
   usuarioId: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
+    unique: true,
+    references: {
+      model: 'Usuarios',
+      key: 'id'
+    }
   },
   saldo: {
-    type: DataTypes.FLOAT,
-    defaultValue: 0,
-    allowNull: false
+    type: DataTypes.DECIMAL(10, 2),
+    defaultValue: 0.00,
+    allowNull: false,
+    validate: {
+      min: 0
+    }
   }
 }, {
-  timestamps: true
+  timestamps: true,
+  indexes: [
+    {
+      unique: true,
+      fields: ['usuarioId']
+    }
+  ]
 });
 
 export default Cartera;

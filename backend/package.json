@@ -6,12 +6,13 @@
   "type": "module",
   "scripts": {
     "start": "node paginaprincipal.js",
-    "dev": "nodemon paginaprincipal.js",
+  "dev": "node --watch paginaprincipal.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "TuNombreAquí",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.3",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
@@ -22,6 +23,8 @@
     "morgan": "^1.10.1",
     "multer": "^2.0.2",
     "mysql2": "^3.15.3",
+    "node-cron": "^4.2.1",
+    "node-fetch": "^3.3.2",
     "pdfkit": "^0.17.2",
     "sequelize": "^6.37.7",
     "sqlite3": "^5.1.7"

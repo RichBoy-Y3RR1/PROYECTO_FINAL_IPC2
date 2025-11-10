@@ -19,6 +19,14 @@ const Boleto = sequelize.define('Boleto', {
     type: DataTypes.INTEGER,
     allowNull: false
   },
+  salaId: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'Salas',
+      key: 'id'
+    }
+  },
   precio: {
     type: DataTypes.FLOAT,
     allowNull: false

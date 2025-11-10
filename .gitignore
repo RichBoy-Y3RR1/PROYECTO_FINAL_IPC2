@@ -8,8 +8,11 @@
 
 # Node
 /node_modules
+backend/node_modules
 npm-debug.log
 yarn-error.log
+package-lock.json
+backend/package-lock.json
 
 # IDEs and editors
 .idea/
@@ -41,3 +44,42 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Base de datos local
+db/
+*.db
+*.sqlite
+*.sql.backup
+
+# Logs
+*.log
+
+# Archivos temporales
+*.tmp
+*.temp
+
+# Archivos de prueba
+test-*.js
+verificar-*.js
+fix-*.js
+*-manual.js
+
+# Comprensiones
+*.zip
+*.rar
+*.7z
+
+# Variables de entorno
+.env
+.env.local
+
+# JasperReports output temporal
+backend/jasper/output/*.pdf
+
+# Cache
+.cache/
+.npm/
+
+# Build outputs
+build/
+out/

@@ -31,4 +31,4 @@ const Cine = sequelize.define('Cine', {
   timestamps: true
 });
 
-export default Cine; 
+export default Cine;

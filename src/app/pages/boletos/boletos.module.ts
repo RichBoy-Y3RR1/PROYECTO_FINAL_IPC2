@@ -112,7 +112,7 @@ import { MatChipsModule } from '@angular/material/chips';
 
             <ng-container matColumnDef="sala">
               <th mat-header-cell *matHeaderCellDef> Sala </th>
-              <td mat-cell *matCellDef="let boleto"> 
+              <td mat-cell *matCellDef="let boleto">
                 {{ boleto.funcion?.sala?.nombre || 'N/A' }}
                 <mat-chip>{{ boleto.funcion?.sala?.cine?.nombre || 'N/A' }}</mat-chip>
               </td>
@@ -224,7 +224,7 @@ export class BoletosAdminComponent {
   fechaInicio: Date | null = null;
   fechaFin: Date | null = null;
   cineSeleccionado: number | null = null;
-  
+
   totalBoletos = 0;
   totalIngresos = 0;
   promedioVenta = 0;

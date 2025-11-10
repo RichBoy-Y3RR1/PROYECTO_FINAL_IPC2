@@ -1,59 +1,125 @@
-# ElCineHubProyecto
+# 🎬 El CineHub - Sistema de Gestión de Cines
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.5.
+Sistema completo de gestión de cines con múltiples roles, cartelera, venta de boletos, anuncios publicitarios y reportes.
 
-## Development server
+## 🚀 Inicio Rápido
 
-To start a local development server, run:
+### Requisitos
+- Node.js 18+
+- MySQL 8.0+
+- Angular CLI 20+
 
+### Instalación
+
+1. **Clonar repositorio:**
 ```bash
-ng serve
+git clone https://github.com/RichBoy-Y3RR1/PROYECTO_FINAL_IPC2.git
+cd PROYECTO_FINAL_IPC2
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+2. **Configurar MySQL:**
+```sql
+CREATE DATABASE cinehub CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
+3. **Instalar dependencias:**
 ```bash
-ng generate --help
+# Backend
+cd backend
+npm install
+
+# Frontend
+cd ..
+npm install
 ```
 
-## Building
-
-To build the project run:
-
+4. **Cargar datos iniciales:**
 ```bash
-ng build
+cd backend
+node seed-completo.js
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
+5. **Iniciar aplicación:**
 ```bash
-ng test
+# Windows: doble clic en INICIAR.bat
+# O manualmente:
+# Terminal 1: cd backend && npm start
+# Terminal 2: npm start
 ```
 
-## Running end-to-end tests
+6. **Acceder:** http://localhost:4400
 
-For end-to-end (e2e) testing, run:
+## 👥 Credenciales de Prueba
 
-```bash
-ng e2e
+| Rol | Email | Contraseña |
+|-----|-------|------------|
+| Admin Sistema | admin@sistema.com | 123456 |
+| Admin Cine | admin@asdf.com | 123456 |
+| Anunciante | anunciante@test.com | 123456 |
+| Usuario | user@test.com | 123456 |
+
+## 📚 Documentación Completa
+
+Ver **[INSTALACION-COMPLETA.md](./INSTALACION-COMPLETA.md)** para instrucciones detalladas.
+
+## ✨ Funcionalidades
+
+- ✅ Sistema de roles (Admin Sistema, Admin Cine, Anunciante, Usuario)
+- ✅ Gestión de películas y cartelera
+- ✅ Venta de boletos con cartera virtual
+- ✅ Sistema de anuncios publicitarios
+- ✅ Bloqueo de anuncios por cine (gratuito)
+- ✅ Comentarios y calificaciones
+- ✅ Reportes PDF (JasperReports)
+- ✅ Dashboard personalizado por rol
+- ✅ Autenticación JWT
+- ✅ Internacionalización (español)
+
+## 🛠️ Tecnologías
+
+**Backend:**
+- Node.js + Express
+- Sequelize ORM
+- MySQL
+- JWT Authentication
+- JasperReports
+
+**Frontend:**
+- Angular 20
+- Angular Material
+- RxJS
+- TypeScript
+
+## 📁 Estructura del Proyecto
+
+```
+el-cineHub-proyecto/
+├── backend/           # API REST Node.js
+├── src/              # Aplicación Angular
+├── INICIAR.bat       # Script de inicio
+└── README.md         # Este archivo
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 🎯 Módulos Principales
 
-## Additional Resources
+1. **Autenticación:** Login/registro con JWT
+2. **Cartelera:** Visualización de películas y funciones
+3. **Boletos:** Compra con cartera virtual
+4. **Anuncios:** Sistema publicitario con pago
+5. **Reportes:** PDFs con JasperReports
+6. **Dashboards:** Panel para cada rol
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 📝 Notas
+
+- Primera ejecución: ejecutar `seed-completo.js` una sola vez
+- Bloqueo de anuncios: ahora completamente gratuito
+- Imágenes de películas: usan CDN de Amazon/IMDb
+
+## 📞 Contacto
+
+- **GitHub:** [RichBoy-Y3RR1](https://github.com/RichBoy-Y3RR1)
+- **Email:** yerribamaca@gmail.com
+
+---
+
+**IPC2 - 2025 | Universidad de San Carlos de Guatemala**

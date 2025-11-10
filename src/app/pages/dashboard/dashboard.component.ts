@@ -36,15 +36,15 @@ import { MatBadgeModule } from '@angular/material/badge';
         <mat-nav-list>
           <div class="nav-section">
             <h3 class="nav-section-title">Principal</h3>
-            <a mat-list-item routerLink="/cartelera" routerLinkActive="active-link">
+            <a mat-list-item routerLink="cartelera" routerLinkActive="active-link">
               <mat-icon>movie</mat-icon>
               <span>Cartelera</span>
             </a>
-            <a mat-list-item routerLink="/cines" routerLinkActive="active-link">
+            <a mat-list-item routerLink="cines" routerLinkActive="active-link">
               <mat-icon>theater_comedy</mat-icon>
               <span>Cines</span>
             </a>
-            <a mat-list-item routerLink="/mis-boletos" routerLinkActive="active-link">
+            <a mat-list-item routerLink="mis-boletos" routerLinkActive="active-link">
               <mat-icon>confirmation_number</mat-icon>
               <span>Mis Boletos</span>
             </a>
@@ -130,14 +130,15 @@ import { MatBadgeModule } from '@angular/material/badge';
   styles: [`
     .sidenav-container {
       height: 100vh;
-      background: #f5f5f5;
+      background: #ffffff;
     }
 
     .sidenav {
       width: 280px;
-      background: #1a237e;
-      color: white;
-      border: none;
+      background: #ffffff;
+      color: #000000;
+      border-right: 1px solid #e0e0e0;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.05);
     }
 
     .branding {
@@ -145,21 +146,22 @@ import { MatBadgeModule } from '@angular/material/badge';
       display: flex;
       align-items: center;
       gap: 12px;
-      background: rgba(255, 255, 255, 0.1);
+      background: #ff6600;
+      border-bottom: 1px solid #e0e0e0;
     }
 
     .logo-icon {
       font-size: 32px;
       height: 32px;
       width: 32px;
-      color: #ffd700;
+      color: #ffffff;
     }
 
     .brand-name {
       margin: 0;
       font-size: 24px;
-      font-weight: 500;
-      color: white;
+      font-weight: 600;
+      color: #ffffff;
     }
 
     .nav-section {
@@ -171,31 +173,34 @@ import { MatBadgeModule } from '@angular/material/badge';
       margin: 8px 0;
       font-size: 12px;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.7);
+      color: #666666;
+      font-weight: 600;
     }
 
     .mat-nav-list a {
       margin: 4px 8px;
       border-radius: 8px;
-      color: white;
+      color: #000000;
       transition: all 0.3s ease;
     }
 
     .mat-nav-list a:hover {
-      background: rgba(255, 255, 255, 0.1);
+      background: #f5f5f5;
     }
 
     .active-link {
-      background: rgba(255, 255, 255, 0.15) !important;
+      background: #ff6600 !important;
+      color: #ffffff !important;
     }
 
     .logout-item {
-      color: #ff4081 !important;
+      color: #000000 !important;
     }
 
     mat-toolbar {
-      background: white;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      background: #ff6600;
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
 
     .toolbar-content {
@@ -207,7 +212,8 @@ import { MatBadgeModule } from '@angular/material/badge';
 
     .page-title {
       font-size: 20px;
-      color: #333;
+      color: #ffffff;
+      font-weight: 500;
     }
 
     .toolbar-right {
@@ -218,6 +224,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 
     .notification-btn {
       margin-right: 8px;
+      color: #ffffff;
     }
 
     .user-profile-btn {
@@ -226,7 +233,8 @@ import { MatBadgeModule } from '@angular/material/badge';
       gap: 8px;
       padding: 4px 12px;
       border-radius: 20px;
-      background: rgba(0,0,0,0.05);
+      background: rgba(255,255,255,0.15);
+      color: #ffffff;
     }
 
     .content {
@@ -241,22 +249,24 @@ import { MatBadgeModule } from '@angular/material/badge';
 
     .notification-header {
       padding: 16px;
-      color: #333;
+      color: #000000;
     }
 
     .notification-header h3 {
       margin: 0;
       font-size: 16px;
+      color: #000000;
     }
 
     ::ng-deep .mat-menu-item {
       display: flex;
       align-items: center;
       gap: 12px;
+      color: #000000;
     }
 
     .logout-menu-item {
-      color: #f44336;
+      color: #000000;
     }
 
     mat-icon {
@@ -292,15 +302,15 @@ export class DashboardComponent implements OnInit {
   getCurrentPageTitle(): string {
     switch (this.currentPage) {
       case 'cartelera':
-        return '🎬 Cartelera';
+        return 'Cartelera';
       case 'cines':
-        return '🏢 Nuestros Cines';
+        return 'Nuestros Cines';
       case 'mis-boletos':
-        return '🎟️ Mis Boletos';
+        return 'Mis Boletos';
       case 'perfil':
-        return '👤 Mi Perfil';
+        return 'Mi Perfil';
       case 'cartera':
-        return '💳 Mi Cartera';
+        return 'Mi Cartera';
       default:
         return 'CineHub';
     }

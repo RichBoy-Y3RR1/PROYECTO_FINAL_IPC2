@@ -12,6 +12,8 @@ import BloqueoAnuncio from './bloqueoanuncio.modelo.js';
 import CostoCine from './costocine.modelo.js';
 import Comentario from './comentario.modelo.js';
 import Calificacion from './calificacion.modelo.js';
+import Anuncio from './anuncio.modelo.js';
+import Notificacion from './notificacion.modelo.js';
 
 /* ---- CINE Y SALAS ---- */
 Cine.hasMany(Sala, { foreignKey: 'cineId' });
@@ -48,6 +50,9 @@ Cartera.belongsTo(Usuario, { foreignKey: 'usuarioId' });
 /* ---- BLOQUEO ANUNCIOS ---- */
 Cine.hasMany(BloqueoAnuncio, { foreignKey: 'cineId' });
 BloqueoAnuncio.belongsTo(Cine, { foreignKey: 'cineId' });
+// Relación con Anuncio para poder incluir detalles del anuncio bloqueado
+Anuncio.hasMany(BloqueoAnuncio, { foreignKey: 'anuncioId', as: 'bloqueos' });
+BloqueoAnuncio.belongsTo(Anuncio, { foreignKey: 'anuncioId', as: 'anuncio' });
 
 /* ---- COSTOS CINE ---- */
 Cine.hasMany(CostoCine, { foreignKey: 'cineId' });
@@ -56,13 +61,32 @@ CostoCine.belongsTo(Cine, { foreignKey: 'cineId' });
 /* ---- COMENTARIOS & CALIFICACIONES ---- */
 Usuario.hasMany(Comentario, { foreignKey: 'usuarioId' });
 Comentario.belongsTo(Usuario, { foreignKey: 'usuarioId' });
+
+Pelicula.hasMany(Comentario, { foreignKey: 'peliculaId' });
+Comentario.belongsTo(Pelicula, { foreignKey: 'peliculaId' });
+
 Sala.hasMany(Comentario, { foreignKey: 'salaId' });
 Comentario.belongsTo(Sala, { foreignKey: 'salaId' });
 
 Usuario.hasMany(Calificacion, { foreignKey: 'usuarioId' });
 Calificacion.belongsTo(Usuario, { foreignKey: 'usuarioId' });
+
+Pelicula.hasMany(Calificacion, { foreignKey: 'peliculaId' });
+Calificacion.belongsTo(Pelicula, { foreignKey: 'peliculaId' });
+
 Sala.hasMany(Calificacion, { foreignKey: 'salaId' });
 Calificacion.belongsTo(Sala, { foreignKey: 'salaId' });
+
+/* ---- ANUNCIOS ---- */
+Usuario.hasMany(Anuncio, { foreignKey: 'usuarioAnuncianteId', as: 'anuncios' });
+Anuncio.belongsTo(Usuario, { foreignKey: 'usuarioAnuncianteId', as: 'anunciante' });
+
+/* ---- NOTIFICACIONES ---- */
+Usuario.hasMany(Notificacion, { foreignKey: 'usuarioId', as: 'notificaciones' });
+Notificacion.belongsTo(Usuario, { foreignKey: 'usuarioId', as: 'usuario' });
+
+Anuncio.hasMany(Notificacion, { foreignKey: 'anuncioId', as: 'notificaciones' });
+Notificacion.belongsTo(Anuncio, { foreignKey: 'anuncioId', as: 'anuncio' });
 
 /* ✅ Exportar todos los modelos juntos */
 export default {
@@ -77,5 +101,7 @@ export default {
   BloqueoAnuncio,
   CostoCine,
   Comentario,
-  Calificacion
+  Calificacion,
+  Anuncio,
+  Notificacion
 };

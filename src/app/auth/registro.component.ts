@@ -40,13 +40,13 @@ import { CommonModule } from '@angular/common';
 
         <mat-card-content>
           <p class="welcome-text">
-            🎬 Únete a CineHub y disfruta de:
+            Únete a CineHub y disfruta de:
           </p>
           <ul class="benefits-list">
-            <li>🎟️ Compra de boletos en línea</li>
-            <li>🎭 Cartelera actualizada</li>
-            <li>💳 Cartera digital integrada</li>
-            <li>⭐ Calificaciones y comentarios</li>
+            <li>Compra de boletos en línea</li>
+            <li>Cartelera actualizada</li>
+            <li>Cartera digital integrada</li>
+            <li>Calificaciones y comentarios</li>
           </ul>
 
           <form [formGroup]="registroForm" (ngSubmit)="registrar()">
@@ -73,9 +73,9 @@ import { CommonModule } from '@angular/common';
 
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Contraseña</mat-label>
-              <input matInput [type]="hidePassword ? 'password' : 'text'" 
+              <input matInput [type]="hidePassword ? 'password' : 'text'"
                      formControlName="contraseña" placeholder="Mínimo 6 caracteres">
-              <button mat-icon-button matSuffix type="button" 
+              <button mat-icon-button matSuffix type="button"
                       (click)="hidePassword = !hidePassword">
                 <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
               </button>
@@ -99,7 +99,7 @@ import { CommonModule } from '@angular/common';
               <mat-icon matSuffix>phone</mat-icon>
             </mat-form-field>
 
-            <button mat-raised-button color="primary" type="submit" 
+            <button mat-raised-button color="primary" type="submit"
                     [disabled]="!registroForm.valid || loading" class="full-width submit-btn">
               <mat-icon>{{ loading ? 'hourglass_empty' : 'person_add' }}</mat-icon>
               {{ loading ? 'Registrando...' : 'Crear cuenta' }}
@@ -107,7 +107,7 @@ import { CommonModule } from '@angular/common';
           </form>
 
           <div class="login-link">
-            ¿Ya tienes cuenta? 
+            ¿Ya tienes cuenta?
             <a routerLink="/login">Inicia sesión aquí</a>
           </div>
         </mat-card-content>
@@ -199,6 +199,32 @@ import { CommonModule } from '@angular/common';
     .login-link a:hover {
       text-decoration: underline;
     }
+
+    :host ::ng-deep .success-snackbar {
+      background-color: #4caf50 !important;
+      color: white !important;
+    }
+
+    :host ::ng-deep .error-snackbar {
+      background-color: #f44336 !important;
+      color: white !important;
+    }
+
+    mat-error {
+      font-size: 12px;
+      margin-top: -12px;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 600px) {
+      .registro-card {
+        margin: 0;
+      }
+    }
   `]
 })
 export class RegistroComponent implements OnInit {
@@ -227,25 +253,68 @@ export class RegistroComponent implements OnInit {
     if (this.registroForm.invalid || this.loading) return;
 
     this.loading = true;
+    const formValues = this.registroForm.value;
+    
+    // Limpiar y validar datos antes de enviar
+    const nombre = formValues.nombre?.trim();
+    const correo = formValues.correo?.trim().toLowerCase();
+    const contraseña = formValues.contraseña;
+    
+    if (!nombre || !correo || !contraseña) {
+      this.loading = false;
+      this.snackBar.open('Por favor completa todos los campos requeridos', 'Cerrar', {
+        duration: 3000
+      });
+      return;
+    }
+
     const payload = {
-      ...this.registroForm.value,
-      email: this.registroForm.value.correo, // Duplicar para compatibilidad
-      tipo: 'cliente' // Todos los registros públicos son clientes
+      nombre: nombre,
+      correo: correo,
+      contraseña: contraseña,
+      edad: formValues.edad ? parseInt(formValues.edad) : null,
+      telefono: formValues.telefono?.trim() || null,
+      tipo: 'cliente'
     };
+
+    console.log('Enviando registro:', { ...payload, contraseña: '***' });
 
     this.http.post('http://localhost:4000/api/auth/registro', payload).subscribe({
       next: (res: any) => {
         this.loading = false;
-        this.snackBar.open('✅ Cuenta creada exitosamente. ¡Inicia sesión!', 'Cerrar', { 
-          duration: 4000 
+        console.log('Registro exitoso:', res);
+        this.snackBar.open('Cuenta creada exitosamente', 'Cerrar', {
+          duration: 3000,
+          panelClass: ['success-snackbar']
         });
-        this.router.navigate(['/login']);
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 1500);
       },
       error: (err) => {
         this.loading = false;
-        console.error('Error al registrar:', err);
-        const mensaje = err.error?.error || err.error?.msg || 'Error al crear la cuenta';
-        this.snackBar.open(`❌ ${mensaje}`, 'Cerrar', { duration: 4000 });
+        console.error('Error completo:', err);
+        
+        let mensaje = 'Error al crear la cuenta';
+        
+        if (err.status === 409) {
+          mensaje = 'Este correo ya está registrado';
+        } else if (err.status === 400) {
+          if (err.error?.errores && Array.isArray(err.error.errores)) {
+            mensaje = err.error.errores[0]?.msg || mensaje;
+          } else if (err.error?.msg) {
+            mensaje = err.error.msg;
+          }
+        } else if (err.status === 500) {
+          mensaje = 'Error en el servidor. Intenta nuevamente.';
+        } else if (err.status === 0) {
+          mensaje = 'No se puede conectar al servidor. Verifica que esté corriendo.';
+        }
+        
+        this.snackBar.open(mensaje, 'Cerrar', { 
+          duration: 5000,
+          panelClass: ['error-snackbar']
+        });
       }
     });
   }

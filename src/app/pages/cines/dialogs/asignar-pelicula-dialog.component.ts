@@ -32,7 +32,7 @@ import { HttpClient } from '@angular/common/http';
       <div mat-dialog-content>
         <p class="info-text">
           <mat-icon>info</mat-icon>
-          Cine: <strong>{{ data.cine.nombre }}</strong> | 
+          Cine: <strong>{{ data.cine.nombre }}</strong> |
           Sala: <strong>{{ data.sala.nombre }}</strong>
         </p>
 
@@ -167,7 +167,7 @@ export class AsignarPeliculaDialogComponent implements OnInit {
     if (this.funcionForm.valid && !this.loading) {
       this.loading = true;
       const formValue = this.funcionForm.value;
-      
+
       // Formatear fecha a YYYY-MM-DD
       const fecha = new Date(formValue.fecha);
       const fechaStr = fecha.toISOString().split('T')[0];

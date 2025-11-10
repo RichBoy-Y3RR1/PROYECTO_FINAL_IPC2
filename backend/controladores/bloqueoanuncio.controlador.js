@@ -3,24 +3,28 @@ import BloqueoAnuncio from '../modelos/bloqueoanuncio.modelo.js';
 import Cartera from '../modelos/cartera.modelo.js';
 
 export const bloquearAnuncios = async (req, res) => {
-  const { dias, monto } = req.body;
-  const { cineId } = req.params;
+  try {
+    const { dias, anuncioId } = req.body;
+    const { cineId } = req.params;
 
-  const cartera = await Cartera.findOne({ where: { usuarioId: req.usuario.id } });
+    if (!anuncioId) {
+      return res.status(400).json({ msg: 'anuncioId requerido' });
+    }
 
-  if (cartera.saldo < monto) {
-    return res.status(400).json({ msg: 'Saldo insuficiente' });
+    // Sin costo - bloqueo gratuito
+    const fechaHoy = new Date().toISOString().split('T')[0];
+    
+    const bloqueo = await BloqueoAnuncio.create({
+      cineId,
+      anuncioId,
+      fechaInicio: fechaHoy,
+      dias: dias || 7,
+      montoPagado: 0
+    });
+
+    res.json({ msg: 'Anuncio bloqueado sin costo', bloqueo });
+  } catch (error) {
+    console.error('Error bloqueando anuncio:', error);
+    res.status(500).json({ error: error.message });
   }
-
-  cartera.saldo -= monto;
-  await cartera.save();
-
-  const bloqueo = await BloqueoAnuncio.create({
-    cineId,
-    fechaInicio: new Date(),
-    dias,
-    montoPagado: monto
-  });
-
-  res.json({ msg: 'Anuncios bloqueados', bloqueo });
 };

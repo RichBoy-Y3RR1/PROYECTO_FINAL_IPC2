@@ -1,1 +1,93 @@
-<p>login works!</p>
+<div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>
+        <h2>🎬 Iniciar Sesión - CineHub</h2>
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+        <!-- Campo de Correo -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Correo Electrónico</mat-label>
+          <input
+            matInput
+            type="email"
+            formControlName="correo"
+            placeholder="ejemplo@cinehub.com"
+            required>
+          <mat-icon matPrefix>email</mat-icon>
+          <mat-error *ngIf="correoInvalid">
+            Ingrese un correo válido
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Campo de Contraseña -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Contraseña</mat-label>
+          <input
+            matInput
+            [type]="hidePassword ? 'password' : 'text'"
+            formControlName="contraseña"
+            required>
+          <mat-icon matPrefix>lock</mat-icon>
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="hidePassword = !hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="contraseñaInvalid">
+            La contraseña debe tener al menos 6 caracteres
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Mensaje de Error -->
+        <mat-error *ngIf="errorMessage" class="error-alert">
+          <mat-icon>error</mat-icon>
+          {{ errorMessage }}
+        </mat-error>
+
+        <!-- Botón de Login -->
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="full-width login-button"
+          [disabled]="loading || loginForm.invalid">
+          <mat-icon *ngIf="!loading">login</mat-icon>
+          <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+          {{ loading ? 'Iniciando sesión...' : 'Iniciar Sesión' }}
+        </button>
+
+        <!-- Credenciales de prueba -->
+        <mat-divider class="divider"></mat-divider>
+        <div class="test-credentials">
+          <p><strong>🧪 Credenciales de Prueba:</strong></p>
+          <mat-chip-set>
+            <mat-chip (click)="loginForm.patchValue({correo: 'admin@cinehub.com', contraseña: 'admin123'})">
+              <mat-icon>admin_panel_settings</mat-icon> Admin Sistema
+            </mat-chip>
+            <mat-chip (click)="loginForm.patchValue({correo: 'admin.central@cinehub.com', contraseña: 'cine123'})">
+              <mat-icon>movie</mat-icon> Admin Cine
+            </mat-chip>
+            <mat-chip (click)="loginForm.patchValue({correo: 'anunciante@test.com', contraseña: 'anunciante123'})">
+              <mat-icon>campaign</mat-icon> Anunciante
+            </mat-chip>
+            <mat-chip (click)="loginForm.patchValue({correo: 'usuario@test.com', contraseña: 'user123'})">
+              <mat-icon>person</mat-icon> Usuario
+            </mat-chip>
+          </mat-chip-set>
+        </div>
+
+        <!-- Link a Registro -->
+        <div class="register-link">
+          <p>¿No tienes cuenta? <a routerLink="/registro">Regístrate aquí</a></p>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,17 +1,27 @@
 // backend/config/db.js
 import { Sequelize } from 'sequelize';
-import path from 'path';
-import { fileURLToPath } from 'url';
 
-// Necesario para __dirname con ESModules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// Único punto de inicialización de Sequelize (sin auto-sync destructivo)
+// Usa variables de entorno si existen, con fallback seguro.
+const DB_NAME = process.env.DB_NAME || 'cinehub_db';
+const DB_USER = process.env.DB_USER || 'root';
+const DB_PASS = process.env.DB_PASS || '12345';
+const DB_HOST = process.env.DB_HOST || 'localhost';
 
-// Conexión a SQLite usando Sequelize
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: path.join(__dirname, '../db/cinehub.sqlite'),
-  logging: false, // pon true si quieres ver las consultas SQL
+const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASS, {
+  host: DB_HOST,
+  dialect: 'mysql',
+  logging: false
 });
+
+export const inicializarConexion = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('✅ Conexión a MySQL establecida con éxito');
+  } catch (error) {
+    console.error('❌ Error al conectar a MySQL:', error);
+    throw error;
+  }
+};
 
 export default sequelize;

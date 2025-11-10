@@ -199,7 +199,7 @@ export class ComprarBoletosDialogComponent {
   }
 
   cargarFunciones() {
-    this.http.get<any[]>(`http://localhost:3000/api/funciones/pelicula/${this.data.pelicula.id}`)
+  this.http.get<any[]>(`http://localhost:4000/api/funciones/pelicula/${this.data.pelicula.id}`)
       .subscribe({
         next: (funciones) => this.funciones = funciones,
         error: (error) => {
@@ -226,15 +226,17 @@ export class ComprarBoletosDialogComponent {
     if (this.form.invalid) return;
 
     this.loading = true;
+    const token = localStorage.getItem('token');
     const compra = {
       ...this.form.value,
       peliculaId: this.data.pelicula.id
     };
 
-    this.http.post('http://localhost:3000/api/boletos', compra)
-      .subscribe({
+    this.http.post('http://localhost:4000/api/boletos', compra, {
+      headers: { Authorization: `Bearer ${token}` }
+    }).subscribe({
         next: () => {
-          this.snackBar.open('¡Compra realizada con éxito! 🎉', 'Cerrar', {
+          this.snackBar.open('Compra realizada con éxito', 'Cerrar', {
             duration: 5000
           });
           this.dialogRef.close(true);

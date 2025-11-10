@@ -7,12 +7,30 @@ const Calificacion = sequelize.define('Calificacion', {
     type: DataTypes.ENUM('pelicula', 'sala'),
     allowNull: false
   },
+  peliculaId: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'Peliculas',
+      key: 'id'
+    }
+  },
+  salaId: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'Salas',
+      key: 'id'
+    }
+  },
   valor: {
     type: DataTypes.INTEGER,
+    allowNull: false,
     validate: {
       min: 1,
       max: 5
     }
   }
 });
+
 export default Calificacion;

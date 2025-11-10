@@ -24,6 +24,13 @@ import costoRuta from './rutas/costocine.ruta.js';
 import comentarioRuta from './rutas/comentario.ruta.js';
 import reportesRuta from './rutas/reportes.ruta.js';
 import configAnuncioRuta from './rutas/config-anuncio.ruta.js';
+import calificacionRuta from './rutas/calificacion.ruta.js';
+import adminSistemaRuta from './rutas/admin-sistema.ruta.js';
+import adminCineRuta from './rutas/admin-cine.ruta.js';
+import reportesCineRuta from './rutas/reportes-cine.ruta.js';
+import reportesSistemaRuta from './rutas/reportes-sistema.ruta.js';
+import notificacionesRuta from './rutas/notificaciones.ruta.js';
+import { iniciarJobLimpiezaAnuncios, limpiarAnunciosManual } from './jobs/limpiar-anuncios.js';
 
 
 
@@ -35,6 +42,7 @@ import './modelos/funcion.modelo.js';
 import './modelos/boleto.modelo.js';
 import './modelos/pago.modelo.js';
 import './modelos/config-anuncio.modelo.js';
+import './modelos/notificacion.modelo.js';
 
 // ✅ Importar asociaciones
 import './modelos/asociaciones.js';
@@ -55,14 +63,14 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send(`
-    <h1>🎬 Bienvenido a la API de CineHub</h1>
+    <h1>Bienvenido a la API de CineHub</h1>
     <ul>
-      <li>🎞️ <a href="/api/peliculas">Ver Películas</a></li>
-      <li>🏛️ <a href="/api/cines">Ver Cines</a></li>
-      <li>🎟️ <a href="/api/boletos">Ver Boletos</a></li>
-      <li>🕐 <a href="/api/funciones">Ver Funciones</a></li>
-      <li>💳 <a href="/api/pagos">Ver Pagos</a></li>
-      <li>🧑‍💼 <a href="/api/usuarios">Ver Usuarios</a></li>
+      <li><a href="/api/peliculas">Ver Películas</a></li>
+      <li><a href="/api/cines">Ver Cines</a></li>
+      <li><a href="/api/boletos">Ver Boletos</a></li>
+      <li><a href="/api/funciones">Ver Funciones</a></li>
+      <li><a href="/api/pagos">Ver Pagos</a></li>
+      <li><a href="/api/usuarios">Ver Usuarios</a></li>
     </ul>
   `);
 });
@@ -76,8 +84,16 @@ app.use('/api/anuncios/config', configAnuncioRuta);
 app.use('/api/bloqueo-anuncios', bloqueoRuta);
 app.use('/api/costos-cine', costoRuta);
 app.use('/api/comentarios', comentarioRuta);
+app.use('/api/calificaciones', calificacionRuta);
+app.use('/api/notificaciones', notificacionesRuta);
 
 app.use('/api/reportes', reportesRuta);
+app.use('/api/reportes-cine', reportesCineRuta);
+app.use('/api/reportes-sistema', reportesSistemaRuta);
+
+// Rutas de administración
+app.use('/api/admin-sistema', adminSistemaRuta);
+app.use('/api/admin-cine', adminCineRuta);
 
 app.use('/api/peliculas', rutasPeliculas);
 app.use('/api/cines', rutasCines);
@@ -86,6 +102,9 @@ app.use('/api/boletos', rutasBoletos);
 app.use('/api/funciones', rutasFunciones);
 app.use('/api/pagos', rutasPagos);
 app.use('/api/usuarios', rutasUsuarios);
+
+// Endpoint manual para limpiar anuncios expirados
+app.post('/api/jobs/limpiar-anuncios', limpiarAnunciosManual);
 // app.use('/api/cines', rutasCines); ...
 
 // Middleware para manejar errores globales
@@ -98,9 +117,11 @@ app.use((err, req, res, next) => {
 // Habilitar alter en esta iteración para actualizar columnas (ej. salaId en Función)
 sequelize.sync({ force: false }) // No borrar datos
   .then(() => {
-    console.log('📦 Base de datos sincronizada');
+    console.log('Base de datos sincronizada');
     app.listen(PUERTO, () => {
-      console.log(`🚀 Servidor corriendo en http://localhost:${PUERTO}`);
+      console.log(`Servidor corriendo en http://localhost:${PUERTO}`);
+      // Iniciar jobs de limpieza automática de anuncios
+      iniciarJobLimpiezaAnuncios();
     });
   })
-  .catch(err => console.error('❌ Error al conectar con la BD:', err));
+  .catch(err => console.error('Error al conectar con la BD:', err));

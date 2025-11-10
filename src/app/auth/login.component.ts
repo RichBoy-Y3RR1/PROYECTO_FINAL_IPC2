@@ -50,12 +50,12 @@ export class LoginComponent implements OnInit {
 
     this.auth.login({ correo: correo!, contraseña: contraseña! }).subscribe({
       next: () => {
-        this.snack.open('Login exitoso ✅', '', { duration: 2000 });
+  this.snack.open('Login exitoso', '', { duration: 2000 });
         // El servicio de autenticación maneja la navegación
       },
       error: (err) => {
         console.error('Error de login:', err);
-        this.snack.open('Credenciales incorrectas ❌', '', { duration: 3000 });
+  this.snack.open('Credenciales incorrectas', '', { duration: 3000 });
       },
     });
   }

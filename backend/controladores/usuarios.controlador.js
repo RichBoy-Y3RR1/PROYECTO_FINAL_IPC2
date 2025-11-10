@@ -1,7 +1,6 @@
 // controladores/usuarios.controlador.js
 import Usuario from '../modelos/usuario.modelo.js';
 
-
 export const obtenerUsuarios = async (req, res) => {
   const usuarios = await Usuario.findAll();
   res.json(usuarios);

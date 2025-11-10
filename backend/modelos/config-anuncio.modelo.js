@@ -3,22 +3,33 @@ import { DataTypes } from 'sequelize';
 import sequelize from '../config/db.js';
 
 const ConfigAnuncio = sequelize.define('ConfigAnuncio', {
-  tipo: {
-    type: DataTypes.ENUM('texto', 'imagen', 'video'),
-    allowNull: false,
-    unique: true
-  },
-  precioDiario: {
+  porcentajeOcultacion: {
     type: DataTypes.FLOAT,
     allowNull: false,
-    defaultValue: 10
+    defaultValue: 40.0,
+    comment: 'Porcentaje del costo del anuncio que cobra el admin_cine por ocultar'
   },
-  periodosPermitidos: {
-    // CSV de días permitidos, ej: "1,3,7,14"
-    type: DataTypes.STRING,
+  costoDiarioBase: {
+    type: DataTypes.FLOAT,
     allowNull: false,
-    defaultValue: '1,3,7,14'
+    defaultValue: 25.0,
+    comment: 'Costo base diario para anuncios (tipo texto)'
+  },
+  preciosAnuncios: {
+    type: DataTypes.JSON,
+    allowNull: true,
+    defaultValue: {
+      texto: 25,
+      imagen: 50,
+      video: 100,
+      banner: 75,
+      mixto: 80
+    },
+    comment: 'Precios por tipo de anuncio por día'
   }
+}, {
+  tableName: 'ConfigAnuncios',
+  timestamps: true
 });
 
 export default ConfigAnuncio;

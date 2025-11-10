@@ -35,7 +35,7 @@ import { MatIconModule } from '@angular/material/icon';
 
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Dirección</mat-label>
-          <textarea matInput formControlName="direccion" rows="2" 
+          <textarea matInput formControlName="direccion" rows="2"
                     placeholder="Dirección completa del cine"></textarea>
         </mat-form-field>
 

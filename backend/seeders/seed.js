@@ -21,7 +21,7 @@ async function runSeed() {
     // 👤 Crear usuarios
     const hashedPassword = await bcrypt.hash('123456', 10);
     const hashedAdminPassword = await bcrypt.hash('admin123', 10);
-    
+
     const usuario = await Usuario.create({
       nombre: 'Carlos Dev',
       email: 'carlos@cinehub.com',

@@ -59,7 +59,7 @@ export const reporteTopSalas = async (req, res) => {
       const promedio = calificaciones.length > 0
         ? calificaciones.reduce((sum, c) => sum + c.puntuacion, 0) / calificaciones.length
         : 0;
-      
+
       return {
         id: sala.id,
         nombre: sala.nombre,
@@ -89,7 +89,7 @@ export const reporteBoletosVendidos = async (req, res) => {
     const boletos = await Boleto.findAll({
       include: [
         { model: Usuario, as: 'comprador', attributes: ['nombre', 'email'] },
-        { 
+        {
           model: Funcion,
           as: 'funcion',
           include: [
@@ -104,8 +104,8 @@ export const reporteBoletosVendidos = async (req, res) => {
     const totalIngresos = boletos.reduce((sum, b) => sum + (parseFloat(b.precio) || 0), 0);
     const totalBoletos = boletos.length;
 
-    res.json({ 
-      success: true, 
+    res.json({
+      success: true,
       data: boletos,
       estadisticas: {
         totalBoletos,
@@ -189,5 +189,32 @@ export const reporteAnuncios = async (req, res) => {
   } catch (error) {
     console.error('Error en reporte anuncios:', error);
     res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+// Reporte Jasper de rendimiento de anuncios (impresiones, clics, CTR)
+export const reporteRendimientoAnunciosJasper = async (req, res) => {
+  try {
+    const { fechaInicio, fechaFin } = req.query;
+    
+    const jasperHelper = await import('../jasper/jasper-helper.js');
+    const params = {
+      fechaInicio: fechaInicio || null,
+      fechaFin: fechaFin || null
+    };
+
+    await jasperHelper.generateReport(
+      'rendimiento-anuncios',
+      params,
+      'rendimiento-anuncios',
+      res
+    );
+  } catch (error) {
+    console.error('Error generando reporte Jasper rendimiento anuncios:', error);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      msg: 'Error al generar el reporte de rendimiento de anuncios'
+    });
   }
 };

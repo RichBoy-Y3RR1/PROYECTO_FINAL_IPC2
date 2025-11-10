@@ -167,7 +167,7 @@ export class UsuariosAdminComponent {
       return this.usuarios;
     }
     const term = this.searchTerm.toLowerCase();
-    return this.usuarios.filter(u => 
+    return this.usuarios.filter(u =>
       u.nombre?.toLowerCase().includes(term) ||
       u.email?.toLowerCase().includes(term) ||
       u.tipo?.toLowerCase().includes(term)

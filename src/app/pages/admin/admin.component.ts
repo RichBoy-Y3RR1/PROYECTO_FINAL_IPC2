@@ -22,7 +22,7 @@ import { AuthService } from '../../core/auth.service';
   ],
   template: `
     <mat-toolbar color="primary">
-      <span>🎬 CineHub - Panel de Administración</span>
+  <span>CineHub - Panel de Administración</span>
       <span class="spacer"></span>
       <button mat-button [matMenuTriggerFor]="menu">
         <mat-icon>account_circle</mat-icon>
@@ -50,7 +50,7 @@ import { AuthService } from '../../core/auth.service';
             <p>Administra las películas disponibles en el sistema</p>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-raised-button color="primary" [routerLink]="['peliculas']">
+            <button mat-raised-button color="primary" [routerLink]="['/admin/peliculas']">
               Ver Películas
             </button>
           </mat-card-actions>
@@ -66,7 +66,7 @@ import { AuthService } from '../../core/auth.service';
             <p>Administra los cines y sus salas</p>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-raised-button color="primary" [routerLink]="['cines']">
+            <button mat-raised-button color="primary" [routerLink]="['/admin/cines']">
               Ver Cines
             </button>
           </mat-card-actions>
@@ -82,7 +82,7 @@ import { AuthService } from '../../core/auth.service';
             <p>Administra las ventas de boletos</p>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-raised-button color="primary" [routerLink]="['boletos']">
+            <button mat-raised-button color="primary" [routerLink]="['/admin/boletos']">
               Ver Boletos
             </button>
           </mat-card-actions>
@@ -98,7 +98,7 @@ import { AuthService } from '../../core/auth.service';
             <p>Visualiza reportes y estadísticas del sistema</p>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-raised-button color="primary" [routerLink]="['reportes']">
+            <button mat-raised-button color="primary" [routerLink]="['/admin/reportes']">
               Ver Reportes
             </button>
           </mat-card-actions>
@@ -114,7 +114,7 @@ import { AuthService } from '../../core/auth.service';
             <p>Administra los anuncios y promociones</p>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-raised-button color="primary" [routerLink]="['anuncios']">
+            <button mat-raised-button color="primary" [routerLink]="['/admin/anuncios']">
               Ver Anuncios
             </button>
           </mat-card-actions>
@@ -130,7 +130,7 @@ import { AuthService } from '../../core/auth.service';
             <p>Administra los usuarios del sistema</p>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-raised-button color="primary" [routerLink]="['usuarios']">
+            <button mat-raised-button color="primary" [routerLink]="['/admin/usuarios']">
               Ver Usuarios
             </button>
           </mat-card-actions>

@@ -7,7 +7,8 @@ import {
   reporteBoletosVendidos,
   reporteGanancias,
   reporteTopSalas,
-  reporteAnuncios
+  reporteAnuncios,
+  reporteRendimientoAnunciosJasper
 } from '../controladores/reportes.controlador.js';
 
 const router = express.Router();
@@ -28,5 +29,8 @@ router.get('/top-salas', verificarToken, soloRoles('admin'), reporteTopSalas);
 router.get('/boletos-vendidos', verificarToken, soloRoles('admin'), reporteBoletosVendidos);
 router.get('/ganancias', verificarToken, soloRoles('admin'), reporteGanancias);
 router.get('/anuncios', verificarToken, soloRoles('admin'), reporteAnuncios);
+
+// Reporte Jasper de rendimiento de anuncios
+router.get('/rendimiento-anuncios-jasper', verificarToken, soloRoles('admin', 'admin-general'), reporteRendimientoAnunciosJasper);
 
 export default router;

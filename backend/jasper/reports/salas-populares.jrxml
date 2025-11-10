@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="salas_populares"
+              pageWidth="595"
+              pageHeight="842"
+              columnWidth="535"
+              leftMargin="20"
+              rightMargin="20"
+              topMargin="20"
+              bottomMargin="20">
+
+    <field name="sala_nombre" class="java.lang.String"/>
+    <field name="cine_nombre" class="java.lang.String"/>
+    <field name="sala_tipo" class="java.lang.String"/>
+    <field name="sala_capacidad" class="java.lang.Integer"/>
+    <field name="total_boletos" class="java.lang.Integer"/>
+    <field name="total_funciones" class="java.lang.Integer"/>
+    <field name="ocupacion_promedio" class="java.math.BigDecimal"/>
+
+    <title>
+        <band height="120">
+            <staticText>
+                <reportElement x="0" y="0" width="535" height="35"/>
+                <textElement textAlignment="Center">
+                    <font size="22" isBold="true"/>
+                </textElement>
+                <text><![CDATA[🏆 Top 5 Salas Más Populares]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="40" width="535" height="25"/>
+                <textElement textAlignment="Center">
+                    <font size="12" isItalic="true"/>
+                </textElement>
+                <text><![CDATA[Ranking por Total de Boletos Vendidos - Todos los Cines]]></text>
+            </staticText>
+            <textField pattern="dd/MM/yyyy HH:mm">
+                <reportElement x="400" y="95" width="135" height="20"/>
+                <textElement textAlignment="Right">
+                    <font size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Generado: " + new java.util.Date()]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+
+    <columnHeader>
+        <band height="40">
+            <staticText>
+                <reportElement mode="Opaque" x="0" y="0" width="40" height="40" backcolor="#FF6F00"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="12" isBold="true" color="#FFFFFF"/>
+                </textElement>
+                <text><![CDATA[#]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="40" y="0" width="120" height="40" backcolor="#FF6F00"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="11" isBold="true" color="#FFFFFF"/>
+                </textElement>
+                <text><![CDATA[Sala]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="160" y="0" width="120" height="40" backcolor="#FF6F00"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="11" isBold="true" color="#FFFFFF"/>
+                </textElement>
+                <text><![CDATA[Cine]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="280" y="0" width="70" height="40" backcolor="#FF6F00"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="11" isBold="true" color="#FFFFFF"/>
+                </textElement>
+                <text><![CDATA[Tipo]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="350" y="0" width="60" height="40" backcolor="#FF6F00"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="10" isBold="true" color="#FFFFFF"/>
+                </textElement>
+                <text><![CDATA[Funciones]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="410" y="0" width="65" height="40" backcolor="#FF6F00"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="10" isBold="true" color="#FFFFFF"/>
+                </textElement>
+                <text><![CDATA[🎟️ Boletos]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="475" y="0" width="60" height="40" backcolor="#FF6F00"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="10" isBold="true" color="#FFFFFF"/>
+                </textElement>
+                <text><![CDATA[Ocupación %]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="40">
+            <textField>
+                <reportElement x="0" y="0" width="40" height="40"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="14" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="40" y="0" width="120" height="40"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font size="10"/>
+                    <paragraph leftIndent="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{sala_nombre}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="160" y="0" width="120" height="40"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font size="9"/>
+                    <paragraph leftIndent="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{cine_nombre}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="280" y="0" width="70" height="40"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{sala_tipo}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="350" y="0" width="60" height="40"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{total_funciones}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="410" y="0" width="65" height="40"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="13" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{total_boletos}]]></textFieldExpression>
+            </textField>
+            <textField pattern="#,##0.0">
+                <reportElement x="475" y="0" width="60" height="40"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{ocupacion_promedio} + "%"]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+
+    <pageFooter>
+        <band height="30">
+            <textField>
+                <reportElement x="0" y="10" width="535" height="20"/>
+                <textElement textAlignment="Center">
+                    <font size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+</jasperReport>

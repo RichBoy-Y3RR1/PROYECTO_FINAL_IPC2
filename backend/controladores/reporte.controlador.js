@@ -23,11 +23,11 @@ export const generarReporteBoletos = async (req, res) => {
 
   boletos.forEach(b => {
     doc.fontSize(12).text(`
-📅 Fecha: ${b.fechaCompra}
-🎬 Película: ${b.peliculaComprada?.titulo}
-📍 Cine: ${b.cineComprado?.nombre}
-💰 Precio: Q${b.precio}
-🧑 Cliente: ${b.comprador?.nombre}
+ Fecha: ${b.fechaCompra}
+ Película: ${b.peliculaComprada?.titulo}
+Cine: ${b.cineComprado?.nombre}
+Precio: Q${b.precio}
+Cliente: ${b.comprador?.nombre}
 -------------------------
 `);
   });

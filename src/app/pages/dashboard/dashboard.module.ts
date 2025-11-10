@@ -19,12 +19,12 @@ const routes: Routes = [
         path: 'peliculas',
         loadChildren: () => import('../../peliculas/peliculas.module').then(m => m.PeliculasModule)
       },
-      { path: 'cines', redirectTo: 'cartelera' },
+      { path: 'cines', loadComponent: () => import('../cines-public/cines-public.component').then(m => m.CinesPublicComponent) },
       {
         path: 'cartelera',
         loadChildren: () => import('../cartelera/cartelera.module').then(m => m.CarteleraModule)
       },
-      { path: 'mis-boletos', redirectTo: 'cartelera' },
+      { path: 'mis-boletos', loadComponent: () => import('../mis-boletos/mis-boletos.component').then(m => m.MisBoletosComponent) },
       { path: '', redirectTo: 'cartelera', pathMatch: 'full' }
     ]
   }

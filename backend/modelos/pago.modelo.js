@@ -9,7 +9,8 @@ const Pago = sequelize.define('Pago', {
   },
   boletoId: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: true,
+    comment: 'ID del boleto (null si el pago es por anuncio u otro concepto)'
   },
   monto: {
     type: DataTypes.FLOAT,

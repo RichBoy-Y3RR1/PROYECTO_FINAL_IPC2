@@ -1,5 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
+/* Estilos globales - Tema Blanco y Negro CineHub */
 
 html, body {
   height: 100%;
@@ -10,23 +9,38 @@ html, body {
 
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: var(--mat-sys-surface, #fafafa); /* usa variable si existe, si no usa #fafafa */
-  color: var(--mat-sys-on-surface, #000); /* usa variable si existe, si no usa negro */
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Forzar colores blanco y negro en todos los componentes */
+* {
+  --primary-color: #000000;
+  --secondary-color: #ffffff;
+  --accent-color: #333333;
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --border-color: #cccccc;
+  --hover-color: #f5f5f5;
+  --disabled-color: #999999;
 }
 
 .app-container {
   display: flex;
   min-height: 100vh;
+  background-color: #ffffff;
 }
 
 .main-content {
   flex: 1;
   padding: 20px;
+  background-color: #ffffff;
 }
 
 .mat-typography {
   font: 400 14px/20px Roboto, "Helvetica Neue", sans-serif;
   letter-spacing: normal;
+  color: #000000;
 }
 
 .login-container {
@@ -34,7 +48,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f5f5f5;
+  background-color: #ffffff;
 }
 
 mat-card {
@@ -42,6 +56,9 @@ mat-card {
   width: 90%;
   margin: 2rem;
   padding: 2rem;
+  background-color: #ffffff !important;
+  border: 1px solid #cccccc !important;
+  color: #000000 !important;
 }
 
 .full-width {
@@ -53,4 +70,175 @@ mat-card {
   display: flex;
   justify-content: flex-end;
   margin-top: 1rem;
+}
+
+/* Sobrescribir colores de Material */
+.mat-mdc-raised-button,
+.mat-mdc-button,
+.mat-mdc-outlined-button {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+.mat-mdc-raised-button:hover,
+.mat-mdc-button:hover {
+  background-color: #333333 !important;
+}
+
+.mat-mdc-outlined-button {
+  border-color: #000000 !important;
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+.mat-mdc-outlined-button:hover {
+  background-color: #f5f5f5 !important;
+}
+
+/* Toolbar blanco y negro */
+mat-toolbar {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* Tabs blanco y negro */
+.mat-mdc-tab-group,
+.mat-mdc-tab {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+.mat-mdc-tab.mdc-tab--active {
+  background-color: #f5f5f5 !important;
+}
+
+.mat-mdc-tab-header {
+  border-bottom: 2px solid #cccccc !important;
+}
+
+/* Form fields */
+.mat-mdc-form-field {
+  color: #000000 !important;
+}
+
+.mat-mdc-text-field-wrapper {
+  background-color: #ffffff !important;
+}
+
+/* Inputs */
+input, textarea, select {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+  border-color: #cccccc !important;
+}
+
+/* Tablas */
+table {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+thead {
+  background-color: #f5f5f5 !important;
+  color: #000000 !important;
+  border-bottom: 2px solid #000000 !important;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #fafafa !important;
+}
+
+tbody tr:hover {
+  background-color: #f5f5f5 !important;
+}
+
+/* Iconos */
+mat-icon {
+  color: #000000 !important;
+}
+
+/* Snackbar */
+.mat-mdc-snack-bar-container {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* Dialogs */
+.mat-mdc-dialog-container {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #cccccc !important;
+}
+
+/* Menu */
+.mat-mdc-menu-panel {
+  background-color: #ffffff !important;
+  border: 1px solid #cccccc !important;
+}
+
+.mat-mdc-menu-item {
+  color: #000000 !important;
+}
+
+.mat-mdc-menu-item:hover {
+  background-color: #f5f5f5 !important;
+}
+
+/* Chips */
+.mat-mdc-chip {
+  background-color: #f5f5f5 !important;
+  color: #000000 !important;
+  border: 1px solid #cccccc !important;
+}
+
+/* Progress bar */
+.mat-mdc-progress-bar {
+  background-color: #cccccc !important;
+}
+
+.mat-mdc-progress-bar .mdc-linear-progress__bar-inner {
+  background-color: #000000 !important;
+}
+
+/* Checkbox y Radio */
+.mat-mdc-checkbox,
+.mat-mdc-radio-button {
+  color: #000000 !important;
+}
+
+/* Slide toggle */
+.mat-mdc-slide-toggle.mat-checked .mdc-switch__track {
+  background-color: #000000 !important;
+}
+
+.mat-mdc-slide-toggle .mdc-switch__track {
+  background-color: #cccccc !important;
+}
+
+/* Dividers */
+mat-divider, hr {
+  border-color: #cccccc !important;
+}
+
+/* Links */
+a {
+  color: #000000 !important;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #333333 !important;
+}
+
+/* Cards con bordes */
+.mat-mdc-card {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #cccccc !important;
+}
+
+/* Badges */
+.mat-badge-content {
+  background-color: #000000 !important;
+  color: #ffffff !important;
 }

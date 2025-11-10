@@ -59,7 +59,7 @@ import { AuthService } from '../../core/auth.service';
                 <span matPrefix>Q&nbsp;</span>
                 <mat-icon matSuffix>attach_money</mat-icon>
               </mat-form-field>
-              <button mat-raised-button color="primary" (click)="recargarCartera()" 
+              <button mat-raised-button color="primary" (click)="recargarCartera()"
                       [disabled]="!montoRecarga || montoRecarga <= 0">
                 <mat-icon>add_circle</mat-icon>
                 Recargar
@@ -72,7 +72,7 @@ import { AuthService } from '../../core/auth.service';
           <!-- Formulario de perfil -->
           <form [formGroup]="perfilForm" (ngSubmit)="actualizarPerfil()" class="perfil-form">
             <h3>Información Personal</h3>
-            
+
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Nombre</mat-label>
               <input matInput formControlName="nombre">
@@ -109,7 +109,7 @@ import { AuthService } from '../../core/auth.service';
             </div>
 
             <div class="actions">
-              <button mat-raised-button color="primary" type="submit" 
+              <button mat-raised-button color="primary" type="submit"
                       [disabled]="!perfilForm.valid || !perfilForm.dirty">
                 <mat-icon>save</mat-icon>
                 Guardar Cambios
@@ -247,7 +247,7 @@ import { AuthService } from '../../core/auth.service';
 
     .user-type {
       margin: 16px 0;
-      
+
       mat-chip {
         font-size: 14px;
       }
@@ -279,7 +279,7 @@ export class PerfilComponent implements OnInit {
 
   ngOnInit() {
     this.usuario = this.authService.getCurrentUser();
-    
+
     this.perfilForm = this.fb.group({
       nombre: [this.usuario?.nombre || '', Validators.required],
       email: [this.usuario?.email || this.usuario?.correo || '', [Validators.required, Validators.email]],
@@ -316,18 +316,18 @@ export class PerfilComponent implements OnInit {
     if (!this.montoRecarga || this.montoRecarga <= 0) return;
 
     const token = this.authService.getToken();
-    this.http.post('http://localhost:4000/api/cartera/recargar', 
+    this.http.post('http://localhost:4000/api/cartera/recargar',
       { monto: this.montoRecarga },
       { headers: { 'Authorization': `Bearer ${token}` } }
     ).subscribe({
       next: (res: any) => {
-        this.snackBar.open('✅ Recarga exitosa', 'Cerrar', { duration: 3000 });
+  this.snackBar.open('Recarga exitosa', 'Cerrar', { duration: 3000 });
         this.cartera.saldo = res.saldo;
         this.montoRecarga = 0;
       },
       error: (err) => {
         console.error('Error recargando cartera:', err);
-        this.snackBar.open('❌ Error al recargar', 'Cerrar', { duration: 3000 });
+  this.snackBar.open('Error al recargar', 'Cerrar', { duration: 3000 });
       }
     });
   }
@@ -342,7 +342,7 @@ export class PerfilComponent implements OnInit {
       headers: { 'Authorization': `Bearer ${token}` }
     }).subscribe({
       next: () => {
-        this.snackBar.open('✅ Perfil actualizado', 'Cerrar', { duration: 3000 });
+  this.snackBar.open('Perfil actualizado', 'Cerrar', { duration: 3000 });
         // Actualizar usuario en localStorage
         const updatedUser = { ...this.usuario, ...payload };
         localStorage.setItem('user', JSON.stringify(updatedUser));
@@ -351,7 +351,7 @@ export class PerfilComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error actualizando perfil:', err);
-        this.snackBar.open('❌ Error al actualizar', 'Cerrar', { duration: 3000 });
+  this.snackBar.open('Error al actualizar', 'Cerrar', { duration: 3000 });
       }
     });
   }

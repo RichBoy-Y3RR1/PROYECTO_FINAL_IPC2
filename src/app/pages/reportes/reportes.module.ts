@@ -174,7 +174,7 @@ export class ReportesAdminComponent {
 
   generarReporte(tipo: string) {
     this.snackBar.open(`Generando reporte: ${tipo}`, 'Cerrar', { duration: 3000 });
-    
+
     this.http.post(`http://localhost:4000/api/reportes/${tipo}`, {}).subscribe({
       next: (data) => {
         this.snackBar.open('Reporte generado exitosamente', 'Cerrar', { duration: 3000 });

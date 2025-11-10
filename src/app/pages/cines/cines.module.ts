@@ -39,7 +39,7 @@ import { AsignarPeliculaDialogComponent } from './dialogs/asignar-pelicula-dialo
           <mat-card-content>
             <p *ngIf="cine.telefono"><strong>Teléfono:</strong> {{ cine.telefono }}</p>
             <p *ngIf="cine.email"><strong>Email:</strong> {{ cine.email }}</p>
-            
+
             <div class="salas-section">
               <h3>Salas ({{ cine.salas?.length || 0 }})</h3>
               <mat-chip-set *ngIf="cine.salas && cine.salas.length > 0">
@@ -166,7 +166,7 @@ export class CinesAdminComponent {
   cines: any[] = [];
 
   constructor(
-    private http: HttpClient, 
+    private http: HttpClient,
     private snackBar: MatSnackBar,
     private dialog: MatDialog
   ) {

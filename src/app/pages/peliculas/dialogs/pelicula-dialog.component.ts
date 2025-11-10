@@ -35,7 +35,7 @@ import { MatIconModule } from '@angular/material/icon';
 
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Descripción</mat-label>
-          <textarea matInput formControlName="descripcion" rows="3" 
+          <textarea matInput formControlName="descripcion" rows="3"
                     placeholder="Descripción de la película"></textarea>
         </mat-form-field>
 

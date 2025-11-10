@@ -3,19 +3,19 @@
   <mat-card>
     <mat-card-header>
       <div class="logo-container">
-        <i class="material-icons cinema-icon">movie</i>
         <mat-card-title>CineHub</mat-card-title>
-        <p class="welcome-text">Tu portal al mundo del cine</p>
+        <p class="welcome-text">Sistema de Gestión de Cines</p>
       </div>
     </mat-card-header>
     <mat-card-content>
       <div class="login-instructions">
-        <p>🎬 Bienvenido a tu experiencia cinematográfica personalizada</p>
-        <p>📧 Ingresa con tu cuenta para:</p>
+        <p><strong>Bienvenido a CineHub</strong></p>
+        <p>Ingresa con tu cuenta para acceder a:</p>
         <ul>
-          <li>Reservar entradas</li>
-          <li>Ver cartelera actualizada</li>
-          <li>Acceder a promociones exclusivas</li>
+          <li>Gestión de reservas de boletos</li>
+          <li>Administración de cartelera y funciones</li>
+          <li>Control de anuncios y reportes</li>
+          <li>Configuración de salas y precios</li>
         </ul>
       </div>
       <form [formGroup]="form" (ngSubmit)="login()">
@@ -40,7 +40,7 @@
       </form>
 
       <div class="registro-link">
-        ¿No tienes cuenta? 
+        ¿No tienes cuenta?
         <a routerLink="/registro">Regístrate aquí</a>
       </div>
     </mat-card-content>

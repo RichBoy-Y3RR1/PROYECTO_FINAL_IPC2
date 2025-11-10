@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="rendimiento-anuncios" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+  
+  <property name="ireport.zoom" value="1.0"/>
+  <property name="ireport.x" value="0"/>
+  <property name="ireport.y" value="0"/>
+  
+  <parameter name="fechaInicio" class="java.lang.String"/>
+  <parameter name="fechaFin" class="java.lang.String"/>
+  
+  <queryString>
+    <![CDATA[
+      SELECT 
+        a.id,
+        a.titulo,
+        a.tipo,
+        a.fechaInicio,
+        a.fechaFin,
+        a.impresiones,
+        a.clics,
+        a.costo,
+        a.activo,
+        a.aprobado,
+        u.nombre AS anunciante,
+        u.correo AS email_anunciante,
+        CASE 
+          WHEN a.impresiones > 0 THEN ROUND((a.clics * 100.0 / a.impresiones), 2)
+          ELSE 0 
+        END AS ctr,
+        DATEDIFF(a.fechaFin, a.fechaInicio) + 1 AS dias_duracion,
+        CASE 
+          WHEN a.impresiones > 0 THEN ROUND(a.costo / a.impresiones, 4)
+          ELSE 0 
+        END AS costo_por_impresion
+      FROM Anuncios a
+      INNER JOIN Usuarios u ON a.usuarioAnuncianteId = u.id
+      WHERE 1=1
+        AND ($P{fechaInicio} IS NULL OR a.fechaInicio >= $P{fechaInicio})
+        AND ($P{fechaFin} IS NULL OR a.fechaFin <= $P{fechaFin})
+      ORDER BY a.impresiones DESC, a.clics DESC
+    ]]>
+  </queryString>
+  
+  <field name="id" class="java.lang.Integer"/>
+  <field name="titulo" class="java.lang.String"/>
+  <field name="tipo" class="java.lang.String"/>
+  <field name="fechaInicio" class="java.sql.Date"/>
+  <field name="fechaFin" class="java.sql.Date"/>
+  <field name="impresiones" class="java.lang.Integer"/>
+  <field name="clics" class="java.lang.Integer"/>
+  <field name="costo" class="java.lang.Double"/>
+  <field name="activo" class="java.lang.Boolean"/>
+  <field name="aprobado" class="java.lang.Boolean"/>
+  <field name="anunciante" class="java.lang.String"/>
+  <field name="email_anunciante" class="java.lang.String"/>
+  <field name="ctr" class="java.lang.Double"/>
+  <field name="dias_duracion" class="java.lang.Integer"/>
+  <field name="costo_por_impresion" class="java.lang.Double"/>
+  
+  <variable name="total_impresiones" class="java.lang.Integer" calculation="Sum">
+    <variableExpression><![CDATA[$F{impresiones}]]></variableExpression>
+  </variable>
+  
+  <variable name="total_clics" class="java.lang.Integer" calculation="Sum">
+    <variableExpression><![CDATA[$F{clics}]]></variableExpression>
+  </variable>
+  
+  <variable name="total_costo" class="java.lang.Double" calculation="Sum">
+    <variableExpression><![CDATA[$F{costo}]]></variableExpression>
+  </variable>
+  
+  <variable name="ctr_promedio" class="java.lang.Double" calculation="Average">
+    <variableExpression><![CDATA[$F{ctr}]]></variableExpression>
+  </variable>
+  
+  <background>
+    <band/>
+  </background>
+  
+  <title>
+    <band height="90">
+      <staticText>
+        <reportElement x="0" y="0" width="555" height="35" forecolor="#1A237E"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font size="24" isBold="true"/>
+        </textElement>
+  <text><![CDATA[Rendimiento de Anuncios]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="0" y="35" width="555" height="20" forecolor="#666666"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font size="12"/>
+        </textElement>
+        <text><![CDATA[Métricas de Impresiones, Clics y CTR]]></text>
+      </staticText>
+      <textField>
+        <reportElement x="0" y="60" width="555" height="20" forecolor="#999999"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font size="10"/>
+        </textElement>
+        <textFieldExpression><![CDATA["Periodo: " + ($P{fechaInicio} != null ? $P{fechaInicio} : "Inicio") + " - " + ($P{fechaFin} != null ? $P{fechaFin} : "Actual")]]></textFieldExpression>
+      </textField>
+      <line>
+        <reportElement x="0" y="85" width="555" height="1" forecolor="#CCCCCC"/>
+      </line>
+    </band>
+  </title>
+  
+  <columnHeader>
+    <band height="40">
+      <rectangle>
+        <reportElement x="0" y="0" width="555" height="35" backcolor="#3F51B5"/>
+      </rectangle>
+      <staticText>
+        <reportElement x="5" y="5" width="30" height="25" forecolor="#FFFFFF"/>
+        <textElement verticalAlignment="Middle">
+          <font size="9" isBold="true"/>
+        </textElement>
+        <text><![CDATA[ID]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="40" y="5" width="130" height="25" forecolor="#FFFFFF"/>
+        <textElement verticalAlignment="Middle">
+          <font size="9" isBold="true"/>
+        </textElement>
+        <text><![CDATA[Título / Anunciante]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="175" y="5" width="50" height="25" forecolor="#FFFFFF"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font size="9" isBold="true"/>
+        </textElement>
+        <text><![CDATA[Tipo]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="230" y="5" width="60" height="25" forecolor="#FFFFFF"/>
+        <textElement textAlignment="Right" verticalAlignment="Middle">
+          <font size="9" isBold="true"/>
+        </textElement>
+        <text><![CDATA[Impresiones]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="295" y="5" width="45" height="25" forecolor="#FFFFFF"/>
+        <textElement textAlignment="Right" verticalAlignment="Middle">
+          <font size="9" isBold="true"/>
+        </textElement>
+        <text><![CDATA[Clics]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="345" y="5" width="50" height="25" forecolor="#FFFFFF"/>
+        <textElement textAlignment="Right" verticalAlignment="Middle">
+          <font size="9" isBold="true"/>
+        </textElement>
+        <text><![CDATA[CTR %]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="400" y="5" width="60" height="25" forecolor="#FFFFFF"/>
+        <textElement textAlignment="Right" verticalAlignment="Middle">
+          <font size="9" isBold="true"/>
+        </textElement>
+        <text><![CDATA[Costo Q]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="465" y="5" width="45" height="25" forecolor="#FFFFFF"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font size="9" isBold="true"/>
+        </textElement>
+        <text><![CDATA[Días]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="515" y="5" width="35" height="25" forecolor="#FFFFFF"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font size="8" isBold="true"/>
+        </textElement>
+        <text><![CDATA[Estado]]></text>
+      </staticText>
+    </band>
+  </columnHeader>
+  
+  <detail>
+    <band height="45">
+      <rectangle>
+        <reportElement x="0" y="0" width="555" height="40" backcolor="#F5F5F5" mode="Transparent">
+          <printWhenExpression><![CDATA[$V{REPORT_COUNT} % 2 == 0]]></printWhenExpression>
+        </reportElement>
+      </rectangle>
+      
+      <textField>
+        <reportElement x="5" y="2" width="30" height="15"/>
+        <textElement verticalAlignment="Middle">
+          <font size="8"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+      </textField>
+      
+      <textField isStretchWithOverflow="true">
+        <reportElement x="40" y="2" width="130" height="15"/>
+        <textElement verticalAlignment="Middle">
+          <font size="8" isBold="true"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
+      </textField>
+      
+      <textField isStretchWithOverflow="true">
+        <reportElement x="40" y="18" width="130" height="12" forecolor="#666666"/>
+        <textElement verticalAlignment="Middle">
+          <font size="7"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$F{anunciante}]]></textFieldExpression>
+      </textField>
+      
+      <textField>
+        <reportElement x="175" y="2" width="50" height="15"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font size="7"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
+      </textField>
+      
+      <textField>
+        <reportElement x="230" y="2" width="60" height="15"/>
+        <textElement textAlignment="Right" verticalAlignment="Middle">
+          <font size="9" isBold="true"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$F{impresiones}]]></textFieldExpression>
+      </textField>
+      
+      <textField>
+        <reportElement x="295" y="2" width="45" height="15"/>
+        <textElement textAlignment="Right" verticalAlignment="Middle">
+          <font size="9" isBold="true" isUnderline="false"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$F{clics}]]></textFieldExpression>
+      </textField>
+      
+      <textField pattern="#,##0.00">
+        <reportElement x="345" y="2" width="50" height="15" forecolor="#4CAF50"/>
+        <textElement textAlignment="Right" verticalAlignment="Middle">
+          <font size="9" isBold="true"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$F{ctr} + "%"]]></textFieldExpression>
+      </textField>
+      
+      <textField pattern="Q #,##0.00">
+        <reportElement x="400" y="2" width="60" height="15"/>
+        <textElement textAlignment="Right" verticalAlignment="Middle">
+          <font size="8"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$F{costo}]]></textFieldExpression>
+      </textField>
+      
+      <textField>
+        <reportElement x="465" y="2" width="45" height="15"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font size="8"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$F{dias_duracion}]]></textFieldExpression>
+      </textField>
+      
+      <textField>
+        <reportElement x="515" y="2" width="35" height="15">
+          <printWhenExpression><![CDATA[$F{activo} && $F{aprobado}]]></printWhenExpression>
+        </reportElement>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font size="7" isBold="true"/>
+        </textElement>
+        <textFieldExpression><![CDATA["✓ Activo"]]></textFieldExpression>
+      </textField>
+      
+      <textField>
+        <reportElement x="515" y="2" width="35" height="15" forecolor="#999999">
+          <printWhenExpression><![CDATA[!$F{activo} || !$F{aprobado}]]></printWhenExpression>
+        </reportElement>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font size="7"/>
+        </textElement>
+        <textFieldExpression><![CDATA["Inactivo"]]></textFieldExpression>
+      </textField>
+      
+      <textField isStretchWithOverflow="true">
+        <reportElement x="230" y="20" width="110" height="12" forecolor="#999999"/>
+        <textElement textAlignment="Right" verticalAlignment="Middle">
+          <font size="6"/>
+        </textElement>
+        <textFieldExpression><![CDATA["Periodo: " + new java.text.SimpleDateFormat("dd/MM/yy").format($F{fechaInicio}) + " - " + new java.text.SimpleDateFormat("dd/MM/yy").format($F{fechaFin})]]></textFieldExpression>
+      </textField>
+      
+      <textField pattern="Q 0.0000">
+        <reportElement x="345" y="20" width="115" height="12" forecolor="#999999"/>
+        <textElement textAlignment="Right" verticalAlignment="Middle">
+          <font size="6"/>
+        </textElement>
+        <textFieldExpression><![CDATA["Costo/Impresión: " + $F{costo_por_impresion}]]></textFieldExpression>
+      </textField>
+      
+      <line>
+        <reportElement x="0" y="38" width="555" height="1" forecolor="#E0E0E0"/>
+      </line>
+    </band>
+  </detail>
+  
+  <summary>
+    <band height="120">
+      <line>
+        <reportElement x="0" y="5" width="555" height="2" forecolor="#1A237E"/>
+      </line>
+      
+      <rectangle>
+        <reportElement x="0" y="15" width="555" height="95" backcolor="#E8EAF6"/>
+      </rectangle>
+      
+      <staticText>
+        <reportElement x="10" y="20" width="545" height="20" forecolor="#1A237E"/>
+        <textElement verticalAlignment="Middle">
+          <font size="14" isBold="true"/>
+        </textElement>
+        <text><![CDATA[Resumen General]]></text>
+      </staticText>
+      
+      <staticText>
+        <reportElement x="20" y="45" width="120" height="15"/>
+        <textElement verticalAlignment="Middle">
+          <font size="10" isBold="true"/>
+        </textElement>
+        <text><![CDATA[Total Impresiones:]]></text>
+      </staticText>
+      
+      <textField>
+        <reportElement x="145" y="45" width="100" height="15" forecolor="#1A237E"/>
+        <textElement verticalAlignment="Middle">
+          <font size="11" isBold="true"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$V{total_impresiones}]]></textFieldExpression>
+      </textField>
+      
+      <staticText>
+        <reportElement x="300" y="45" width="90" height="15"/>
+        <textElement verticalAlignment="Middle">
+          <font size="10" isBold="true"/>
+        </textElement>
+        <text><![CDATA[Total Clics:]]></text>
+      </staticText>
+      
+      <textField>
+        <reportElement x="395" y="45" width="80" height="15" forecolor="#1A237E"/>
+        <textElement verticalAlignment="Middle">
+          <font size="11" isBold="true"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$V{total_clics}]]></textFieldExpression>
+      </textField>
+      
+      <staticText>
+        <reportElement x="20" y="65" width="120" height="15"/>
+        <textElement verticalAlignment="Middle">
+          <font size="10" isBold="true"/>
+        </textElement>
+        <text><![CDATA[CTR Promedio:]]></text>
+      </staticText>
+      
+      <textField pattern="#,##0.00">
+        <reportElement x="145" y="65" width="100" height="15" forecolor="#4CAF50"/>
+        <textElement verticalAlignment="Middle">
+          <font size="11" isBold="true"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$V{ctr_promedio} + " %"]]></textFieldExpression>
+      </textField>
+      
+      <staticText>
+        <reportElement x="300" y="65" width="90" height="15"/>
+        <textElement verticalAlignment="Middle">
+          <font size="10" isBold="true"/>
+        </textElement>
+        <text><![CDATA[Inversión Total:]]></text>
+      </staticText>
+      
+      <textField pattern="Q #,##0.00">
+        <reportElement x="395" y="65" width="150" height="15" forecolor="#FF5722"/>
+        <textElement verticalAlignment="Middle">
+          <font size="11" isBold="true"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$V{total_costo}]]></textFieldExpression>
+      </textField>
+      
+      <textField>
+        <reportElement x="20" y="90" width="525" height="15" forecolor="#666666"/>
+        <textElement textAlignment="Right" verticalAlignment="Middle">
+          <font size="8"/>
+        </textElement>
+        <textFieldExpression><![CDATA["Generado el: " + new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new java.util.Date())]]></textFieldExpression>
+      </textField>
+    </band>
+  </summary>
+  
+</jasperReport>
