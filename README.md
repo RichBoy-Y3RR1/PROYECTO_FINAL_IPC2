@@ -2,7 +2,7 @@
 
 Sistema cine con múltiples roles, cartelera, venta de boletos, anuncios publicitarios y reportes.
 
-## 🚀 Inicio Rápido
+##  Inicio Rápido
 
 ### Requisitos
 - Node.js 18+
