@@ -1,6 +1,6 @@
-# 🎬 El CineHub - Sistema de Gestión de Cines
+#  El CineHub - Sistema de Gestión de Cine
 
-Sistema completo de gestión de cines con múltiples roles, cartelera, venta de boletos, anuncios publicitarios y reportes.
+Sistema cine con múltiples roles, cartelera, venta de boletos, anuncios publicitarios y reportes.
 
 ## 🚀 Inicio Rápido
 
@@ -58,24 +58,24 @@ node seed-completo.js
 | Anunciante | anunciante@test.com | 123456 |
 | Usuario | user@test.com | 123456 |
 
-## 📚 Documentación Completa
+##  Documentación Completa
 
-Ver **[INSTALACION-COMPLETA.md](./INSTALACION-COMPLETA.md)** para instrucciones detalladas.
+Ver **ver documentacion en la carpeta DOCS
 
-## ✨ Funcionalidades
+##  Funcionalidades
 
 - ✅ Sistema de roles (Admin Sistema, Admin Cine, Anunciante, Usuario)
 - ✅ Gestión de películas y cartelera
 - ✅ Venta de boletos con cartera virtual
 - ✅ Sistema de anuncios publicitarios
-- ✅ Bloqueo de anuncios por cine (gratuito)
+- ✅ Bloqueo de anuncios por cine 
 - ✅ Comentarios y calificaciones
 - ✅ Reportes PDF (JasperReports)
 - ✅ Dashboard personalizado por rol
 - ✅ Autenticación JWT
 - ✅ Internacionalización (español)
 
-## 🛠️ Tecnologías
+##  Tecnologías
 
 **Backend:**
 - Node.js + Express
@@ -89,18 +89,18 @@ Ver **[INSTALACION-COMPLETA.md](./INSTALACION-COMPLETA.md)** para instrucciones 
 - Angular Material
 - RxJS
 - TypeScript
+- CSS
 
-## 📁 Estructura del Proyecto
+##  Estructura del Proyecto
 
 ```
 el-cineHub-proyecto/
 ├── backend/           # API REST Node.js
 ├── src/              # Aplicación Angular
-├── INICIAR.bat       # Script de inicio
 └── README.md         # Este archivo
 ```
 
-## 🎯 Módulos Principales
+##  Módulos Principales
 
 1. **Autenticación:** Login/registro con JWT
 2. **Cartelera:** Visualización de películas y funciones
@@ -109,13 +109,13 @@ el-cineHub-proyecto/
 5. **Reportes:** PDFs con JasperReports
 6. **Dashboards:** Panel para cada rol
 
-## 📝 Notas
+##  Notas
 
 - Primera ejecución: ejecutar `seed-completo.js` una sola vez
 - Bloqueo de anuncios: ahora completamente gratuito
 - Imágenes de películas: usan CDN de Amazon/IMDb
 
-## 📞 Contacto
+##  Contacto
 
 - **GitHub:** [RichBoy-Y3RR1](https://github.com/RichBoy-Y3RR1)
 - **Email:** yerribamaca@gmail.com
