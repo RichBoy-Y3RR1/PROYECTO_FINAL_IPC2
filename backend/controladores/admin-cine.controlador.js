@@ -1,4 +1,3 @@
-// backend/controladores/admin-cine.controlador.js
 import Sala from '../modelos/sala.modelo.js';
 import Funcion from '../modelos/funcion.modelo.js';
 import Pelicula from '../modelos/pelicula.modelo.js';
@@ -8,9 +7,7 @@ import Anuncio from '../modelos/anuncio.modelo.js';
 import Cartera from '../modelos/cartera.modelo.js';
 import Pago from '../modelos/pago.modelo.js';
 
-// CRUD DE SALAS (4pts)
 
-// Listar salas del cine del admin
 export const listarMisSalas = async (req, res) => {
   try {
     const cineId = req.usuario.cineId;
@@ -35,7 +32,6 @@ export const listarMisSalas = async (req, res) => {
   }
 };
 
-// Crear sala
 export const crearSala = async (req, res) => {
   try {
     const cineId = req.usuario.cineId;
@@ -67,7 +63,6 @@ export const crearSala = async (req, res) => {
   }
 };
 
-// Actualizar sala
 export const actualizarSala = async (req, res) => {
   try {
     const { id } = req.params;
@@ -101,7 +96,6 @@ export const actualizarSala = async (req, res) => {
   }
 };
 
-// Eliminar sala
 export const eliminarSala = async (req, res) => {
   try {
     const { id } = req.params;
@@ -136,7 +130,7 @@ export const eliminarSala = async (req, res) => {
   }
 };
 
-// ASIGNAR PELÍCULAS A SALAS (2pts)
+// ASIGNAR PELÍCULAS A SALAS 
 export const crearFuncion = async (req, res) => {
   try {
     const cineId = req.usuario.cineId;
@@ -199,7 +193,7 @@ export const listarMisFunciones = async (req, res) => {
   }
 };
 
-// BLOQUEAR ANUNCIOS (2pts)
+// BLOQUEAR ANUNCIOS 
 export const bloquearAnuncio = async (req, res) => {
   try {
     console.log('=== BLOQUEAR ANUNCIO ===');
@@ -240,7 +234,7 @@ export const bloquearAnuncio = async (req, res) => {
       return res.status(400).json({ msg: 'Este anuncio ya está bloqueado para tu cine', codigo: 'ANUNCIO_YA_BLOQUEADO' });
     }
 
-    // Sin costo - bloqueo gratuito
+   
     const fechaHoy = new Date().toISOString().split('T')[0]; // Solo fecha YYYY-MM-DD
     console.log('Creando bloqueo con fecha:', fechaHoy);
 
@@ -267,7 +261,7 @@ export const bloquearAnuncio = async (req, res) => {
   }
 };
 
-// Ver anuncios bloqueados
+
 export const verAnunciosBloqueados = async (req, res) => {
   try {
     const cineId = req.usuario.cineId;
@@ -293,7 +287,6 @@ export const verAnunciosBloqueados = async (req, res) => {
   }
 };
 
-// GESTIONAR BLOQUEO DE COMENTARIOS (1pt)
 export const toggleBloqueoComentarios = async (req, res) => {
   try {
     const { id } = req.params;
@@ -318,7 +311,7 @@ export const toggleBloqueoComentarios = async (req, res) => {
   }
 };
 
-// CONTROLAR VISIBILIDAD (1pt)
+// CONTROLAR VISIBILIDAD
 export const toggleVisibilidad = async (req, res) => {
   try {
     const { id } = req.params;
@@ -343,7 +336,7 @@ export const toggleVisibilidad = async (req, res) => {
   }
 };
 
-// Dashboard con estadísticas
+
 export const estadisticasCine = async (req, res) => {
   try {
     const cineId = req.usuario.cineId;

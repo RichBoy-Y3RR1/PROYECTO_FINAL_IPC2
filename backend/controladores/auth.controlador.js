@@ -1,4 +1,3 @@
-// controladores/auth.controlador.js
 import Usuario from '../modelos/usuario.modelo.js';
 import Cartera from '../modelos/cartera.modelo.js';
 import { body, validationResult } from 'express-validator';
@@ -9,7 +8,7 @@ import sequelize from '../config/db.js';
 const JWT_SECRET = process.env.JWT_SECRET || 'clave_secreta_produccion_2024';
 
 export const registrar = [
-  // Validaciones relajadas para asegurar registro exitoso
+  
   body('nombre')
     .trim()
     .notEmpty().withMessage('El nombre es obligatorio')

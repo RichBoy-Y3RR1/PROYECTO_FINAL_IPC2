@@ -11,11 +11,7 @@ import Sala from '../modelos/sala.modelo.js';
 import Funcion from '../modelos/funcion.modelo.js';
 import { notificarAprobacionAnuncio, notificarRechazoAnuncio } from '../services/notificaciones.service.js';
 
-// ============================================
-// CRUD CINES (4 pts)
-// ============================================
 
-// Listar todos los cines
 export const listarCines = async (req, res) => {
   try {
     const cines = await Cine.findAll({
@@ -35,7 +31,6 @@ export const listarCines = async (req, res) => {
   }
 };
 
-// Crear cine
 export const crearCine = async (req, res) => {
   try {
     const { nombre, ubicacion, telefono, email } = req.body;
@@ -58,7 +53,6 @@ export const crearCine = async (req, res) => {
   }
 };
 
-// Actualizar cine
 export const actualizarCine = async (req, res) => {
   try {
     const { id } = req.params;
@@ -78,7 +72,6 @@ export const actualizarCine = async (req, res) => {
   }
 };
 
-// Eliminar cine
 export const eliminarCine = async (req, res) => {
   try {
     const { id } = req.params;
@@ -105,9 +98,9 @@ export const eliminarCine = async (req, res) => {
   }
 };
 
-// ============================================
+
 // CRUD PELÍCULAS
-// ============================================
+
 
 // Listar todas las películas
 export const listarPeliculas = async (req, res) => {
@@ -218,9 +211,9 @@ export const eliminarPelicula = async (req, res) => {
   }
 };
 
-// ============================================
+
 // GESTIONAR COSTOS OCULTACIÓN
-// ============================================
+
 
 export const configurarCostoOcultacion = async (req, res) => {
   try {
@@ -270,9 +263,9 @@ export const obtenerConfiguracion = async (req, res) => {
   }
 };
 
-// ============================================
+
 // CONFIGURAR PRECIOS ANUNCIOS
-// ============================================
+
 
 export const configurarPreciosAnuncios = async (req, res) => {
   try {
@@ -305,9 +298,9 @@ export const configurarPreciosAnuncios = async (req, res) => {
   }
 };
 
-// ============================================
+
 // GESTIONAR COSTOS DIARIOS
-// ============================================
+
 
 export const configurarCostoDiario = async (req, res) => {
   try {
@@ -363,9 +356,8 @@ export const listarCostosCines = async (req, res) => {
   }
 };
 
-// ============================================
+
 // DESACTIVAR ANUNCIOS
-// ============================================
 
 export const listarTodosAnuncios = async (req, res) => {
   try {
