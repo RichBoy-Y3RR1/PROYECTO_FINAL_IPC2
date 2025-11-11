@@ -22,21 +22,21 @@ router.use(verificarToken);
 // Dashboard
 router.get('/estadisticas', estadisticasCine);
 
-// CRUD Salas (4pts)
+// CRUD Salas
 router.get('/salas', listarMisSalas);
 router.post('/salas', crearSala);
 router.put('/salas/:id', actualizarSala);
 router.delete('/salas/:id', eliminarSala);
 
-// Gestión de salas (2pts)
+// Gestión de sala
 router.patch('/salas/:id/comentarios', toggleBloqueoComentarios);
 router.patch('/salas/:id/visibilidad', toggleVisibilidad);
 
-// Asignar películas (2pts)
+// Asignar películas
 router.post('/funciones', crearFuncion);
 router.get('/funciones', listarMisFunciones);
 
-// Bloquear anuncios (2pts)
+// Bloquear anuncios
 router.post('/bloquear-anuncio', bloquearAnuncio);
 router.get('/anuncios-bloqueados', verAnunciosBloqueados);
 

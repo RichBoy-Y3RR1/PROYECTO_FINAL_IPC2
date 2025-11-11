@@ -19,8 +19,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { TrailerDialogComponent } from './dialogs/trailer-dialog.component';
 import { ComprarBoletosDialogComponent } from './dialogs/comprar-boletos-dialog.component';
-// Nuevo: interfaz para anuncios públicos
-// (Interfaz movida a servicio dedicado)
 
 @Component({
   selector: 'app-cartelera',

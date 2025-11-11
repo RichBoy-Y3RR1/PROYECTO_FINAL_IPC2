@@ -135,7 +135,7 @@ export class CrearAnuncioComponent {
       fechaInicio: [new Date(), Validators.required]
     });
 
-    // Escuchar cambios para recalcular costo
+
     this.anuncioForm.valueChanges.subscribe(() => {
       this.calcularCosto();
     });

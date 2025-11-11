@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarteleraComponent } from './cartelera.component';
 
-// Material
+
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,7 +17,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
 
-// Dialog components (standalone)
+
 import { TrailerDialogComponent } from './dialogs/trailer-dialog.component';
 import { ComprarBoletosDialogComponent } from './dialogs/comprar-boletos-dialog.component';
 
@@ -40,7 +40,7 @@ import { ComprarBoletosDialogComponent } from './dialogs/comprar-boletos-dialog.
     MatSnackBarModule,
     MatMenuModule,
 
-    // Note: CarteleraComponent is standalone and is imported instead of declared
+
     CarteleraComponent,
 
     RouterModule.forChild([
